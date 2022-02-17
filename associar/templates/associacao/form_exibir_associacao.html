@@ -1,0 +1,63 @@
+{% extends 'indexBase.html' %}
+{% load static %}
+{% block conteudo %}
+
+<body class="hold-transition skin-blue sidebar-mini">
+<!-- Main content -->
+    <section class="content">
+      <div class="row">
+
+        <div class="col-md-12">
+          <div class="box box-primary">
+            <div class="box-header">
+              <h3 class="box-title">Associações cadastradas</h3>
+            </div>
+
+
+            <div class="box-body">
+              <form action="{% url 'listar_associacoes' %}" method="post">
+                {% csrf_token %}
+              <!-- Plano -->
+              <div class="form-group">
+                  <div class="col-sm-4">
+                    <label>Selecione o tipo de Associação:</label>
+                      <div class="input-group date">
+                          <div class="input-group-addon">
+                            <i class="fa fa-exchange"></i>
+                          </div>
+                          <select id="associacao" name="associacao" class="form-control select2" style="width: 100%;">
+                              <option value="Ancoras">Âncoras</option>
+                              <option value="Ativos">Ativos</option>
+                              <option value="Colaboradores">Colaboradores</option>
+                            </select>
+                      </div>
+                </div>
+              </div>
+              <!-- Botão Pesquisar -->
+              <div class="form-group">
+                <div class="col-sm-4">
+                <label></label>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-search"></i>
+                  </div>
+                  <input type="submit" class="btn btn-primary" value="Buscar"> </input>
+                </div>
+                </div>
+              </div>
+              </form>
+            </div>
+
+          </div>
+        </div>
+      </div>
+       {% block associacoes %}
+
+
+
+        {% endblock associacoes %}
+    </section>
+
+
+
+{% endblock conteudo %}

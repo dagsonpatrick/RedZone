@@ -1,0 +1,133 @@
+
+{% extends 'baseUser.html' %}
+{% load static %}
+
+{% block conteudo %}
+
+<body class="hold-transition register-page" style="background-image:url({% static 'app/imgs/home/template_a4_fundos-01.jpg' %});background-size: cover; background-position: center center;" >
+<div class="register-box">
+  <div class="register-logo">
+     <h1 class="text-success"> <b class="text-danger"> RED </b> Zone</h1>
+  </div>
+
+  <div class="card">
+    <div class="card-body register-card-body">
+      <p class="login-box-msg">Registrar uma nova conta</p>
+
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="input-group mb-3">
+          <input type="text" id="first_name" name="first_name" class="form-control" placeholder="Nome" required>
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-user"></span>
+            </div>
+          </div>
+          <p class="text-danger">{{form_usuario.first_name.errors}}</p>
+        </div>
+
+        <div class="input-group mb-3">
+          <input type="text" id="last_name" name="last_name" class="form-control" placeholder="Sobrenome" required>
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-user"></span>
+            </div>
+          </div>
+          {{form_usuario.last_name.errors}}
+        </div>
+
+        <div class="input-group mb-3">
+          <div class="input-group">
+            <input type="email" id="email" name="email" class="form-control" placeholder="Email" required>
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-envelope"></span>
+              </div>
+            </div>
+          </div>
+           <label class="text-danger">{{form_usuario.email.errors}}</label>
+
+        </div>
+
+
+        <div class="input-group mb-3">
+          <div class="input-group">
+            <div class="custom-file">
+              <input type="file" class="custom-file-input" name="profile_picture" id="profile_picture">
+              <label class="custom-file-label" for="profile_picture">Foto de Perfil</label>
+            </div>
+          </div>
+          <label class="text-danger">{{form_usuario.profile_picture.errors}}</label>
+        </div>
+
+        <div class="input-group mb-3">
+          <div class="input-group">
+          <input type="password" id="password1" name="password1" class="form-control" placeholder="Senha" required>
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+          </div>
+         <label class="text-danger"> {{form_usuario.password1.errors}}</label>
+        </div>
+
+        <div class="input-group mb-3">
+          <div class="input-group">
+          <input type="password" id="password2" name="password2"  class="form-control" placeholder="Redigite a senha" required>
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+          </div>
+         <label class="text-danger"> {{form_usuario.password2.errors}}</label>
+        </div>
+
+        <div class="row">
+          <div class="col-8">
+            <div class="icheck-primary">
+              <input type="checkbox" id="agreeTerms" name="terms" value="agree">
+              <label for="agreeTerms">
+               Eu concordo com o <a href="#">termos</a>
+              </label>
+            </div>
+          </div>
+          <!-- /.col -->
+          <div class="col-4">
+            <button type="submit" class="btn btn-primary btn-block">Registrar</button>
+          </div>
+          <!-- /.col -->
+        </div>
+      </form>
+
+
+
+      <a href="{% url 'logar_usuario' %}" class="text-center">Eu já tenho uma conta</a>
+
+    </div>
+    <!-- /.form-box -->
+  </div><!-- /.card -->
+</div>
+<!-- /.register-box -->
+
+<!-- jQuery -->
+<script src="{% static 'app/plugins/jquery/jquery.min.js' %}"></script>
+<!-- Bootstrap 4 -->
+<script src="{% static 'app/plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<!-- bs-custom-file-input -->
+<script src="{% static 'app/plugins/bs-custom-file-input/bs-custom-file-input.min.js' %}"></script>
+<!-- AdminLTE App -->
+<script src="{% static 'app/dist/js/adminlte.js' %}"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="{% static 'app/dist/js/demo.js' %}"></script>
+<script type="text/javascript">
+$(document).ready(function () {
+  bsCustomFileInput.init();
+});
+</script>
+
+
+{% endblock conteudo %}
+

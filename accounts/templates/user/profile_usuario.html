@@ -1,0 +1,97 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block conteudo %}
+
+ <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Profile</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">User Profile</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-7">
+
+            <!-- Profile Image -->
+            <form method="post" action="{% url 'atualizar_profile_picture' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="card card-purple card-outline">
+              <div class="card-body box-profile">
+                <div class="text-center">
+                  <img class="profile-user-img img-fluid img-circle"
+                       src="/media/{{request.user.profile_picture}}"
+                       alt="User profile picture" id="foto_selecionada">
+                </div>
+
+                <h3 class="profile-username text-center">{{request.user.first_name}} {{request.user.last_name}}</h3>
+
+                <ul class="list-group list-group-unbordered mb-3">
+                  <div class="input-group">
+                    <div class="custom-file">
+                      <input type="file" class="custom-file-input" id="exampleInputFile" name="profile_picture" id="profile_picture" onchange="showFile()" accept="image/x-png,image/gif,image/jpeg" required>
+                      <label class="custom-file-label" for="exampleInputFile">Foto de Perfil</label>
+                    </div>
+                  </div>
+                </ul>
+
+                <button type="submit" class="btn btn-primary btn-block"><b>Atualizar</b></button>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+            </form>
+
+
+          </div>
+          <!-- /.col -->
+
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+<!-- jQuery -->
+<script src="{% static 'app/plugins/jquery/jquery.min.js' %}"></script>
+<!-- Bootstrap 4 -->
+<script src="{% static 'app/plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<!-- bs-custom-file-input -->
+<script src="{% static 'app/plugins/bs-custom-file-input/bs-custom-file-input.min.js' %}"></script>
+<!-- AdminLTE App -->
+<script src="{% static 'app/dist/js/adminlte.min.js' %}"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="{% static 'app/dist/js/demo.js' %}"></script>
+<script type="text/javascript">
+$(document).ready(function () {
+  bsCustomFileInput.init();
+});
+</script>
+
+<script>
+
+function showFile() {
+       var demoImage = document.getElementById('foto_selecionada');
+       var file = document.querySelector('input[type=file]').files[0];
+       var reader = new FileReader();
+       reader.onload = function (event) {
+          demoImage.src = reader.result;
+       }
+       reader.readAsDataURL(file);
+    }
+
+</script>
+
+{% endblock conteudo %}

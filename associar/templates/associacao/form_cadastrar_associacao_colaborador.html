@@ -1,0 +1,118 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block conteudo %}
+
+     <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb">
+          <div class="col-sm-6">
+            <h1>Associar Colaborador a Tag </h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Colaborador</a></li>
+              <li class="breadcrumb-item active">Associar</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <div class="col-md-12">
+            <form class="form-horizontal" method="post">
+            {% csrf_token %}
+              <div class="box-body">
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label"><i class="nav-icon fas fa fa-tag"></i> TAG</label>
+                    <div class="col-sm-5">
+                       <select id="tag" name="tag" class="form-control select2 select2-purple" data-dropdown-css-class="select2-purple" style="width: 100%;">
+                           {% for tag in lista_tag %}
+                          <option value="{{tag.id}}">{{tag.description}}</option>
+                          {% endfor %}
+                        </select>
+                        {{form_associacao.tag.errors}}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label"><i class="nav-icon fas fa-user"></i> Colaborador</label>
+                    <div class="col-sm-5">
+                       <select id="collaborator" name="collaborator" class="form-control select2 select2-purple" data-dropdown-css-class="select2-purple" style="width: 100%;">
+                           {% for colaborador in lista_colaboradores %}
+                          <option value="{{colaborador.id}}">{{colaborador.first_name}} {{colaborador.last_name}} </option>
+                           {% endfor %}
+                        </select>
+                        {{form_associacao.collaborator.errors}}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <input type="submit" class="btn btn-success" value="Associar">
+                    </div>
+                </div>
+
+              </div>
+            </form>
+        </div>
+      </div>
+
+
+    <div class="row">
+        <div class="col-12">
+             <div class="card">
+                <div class="card-body">
+                  <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                          <th style="width: 10px">ID</th>
+                          <th >Colaborador</th>
+                          <th >Tag</th>
+                          <th style="width: 20px"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for associacao in associacoes %}
+
+                      <form action="" method="post">
+                      {% csrf_token %}
+                        <tr>
+                          <td>{{associacao.id}}</td>
+                          <td><img class="direct-chat-img" src="/media/{{associacao.collaborator.foto}}" alt=""> {{associacao.collaborator.first_name}} {{associacao.collaborator.last_name}}</td>
+                          <td>{{associacao.tag.description}}</td>
+                          <td>
+                            <span class="input-group-btn">
+                                 <a href="{% url 'remover_associacao_colaborador' associacao.id %}" class="btn btn-block btn-outline-danger btn-lg">Remover</a>
+                            </span>
+                          </td>
+                        </tr>
+                      </form>
+
+                    {% endfor %}
+
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                          <th style="width: 20px">ID</th>
+                          <th style="width: 300px">Colaborador</th>
+                          <th style="width: 200px">Tag</th>
+                          <th ></th>
+                        </tr>
+                    </tfoot>
+                  </table>
+                </div>
+                <!-- /.card-body -->
+              </div>
+              <!-- /.card -->
+        </div>
+    </div>
+
+    </section>
+
+
+{% endblock conteudo %}

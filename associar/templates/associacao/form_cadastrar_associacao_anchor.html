@@ -1,0 +1,97 @@
+{% extends 'indexBase.html' %}
+{% load static %}
+{% block conteudo %}
+
+<body class="hold-transition skin-blue sidebar-mini">
+<!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <div class="col-md-12">
+
+            <div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">Associar Âncora ao Plano</h3>
+            </div>
+
+      <form class="form-horizontal" method="post">
+        {% csrf_token %}
+      <div class="box-body">
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Âncora</label>
+            <div class="col-sm-5">
+               <select id="anchor" name="anchor" class="form-control select2" style="width: 100%;">
+                   {% for anchor in lista_anchor %}
+                  <option value="{{anchor.id}}">{{anchor.description}}</option>
+                  {% endfor %}
+                </select>
+                {{form_associacao.anchor.errors}}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Plano</label>
+            <div class="col-sm-5">
+               <select id="plano" name="plano" class="form-control select2" style="width: 100%;">
+                   {% for plano in lista_planos %}
+                  <option value="{{plano.id}}">{{plano.nome}}  </option>
+                   {% endfor %}
+                </select>
+                {{form_associacao.plano.errors}}
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <input type="submit" class="btn btn-success" value="Associar">
+            </div>
+        </div>
+        </div>
+      </form>
+    </div>
+        </div>
+      </div>
+
+
+    <body class="hold-transition skin-blue sidebar-mini">
+      <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header">
+                    <h3 class="box-title">Âncoras   <i class="fa fa-long-arrow-right"></i>  Plano</h3>
+                </div>
+            <div class="box-body table-responsive no-padding">
+              <table class="table table-hover">
+                <tr>
+                  <th style="width: 20px">ID</th>
+                  <th style="width: 300px">Âncora</th>
+                  <th style="width: 200px">Plano</th>
+                </tr>
+                {% for associacao in associacoes %}
+              <form action="" method="post">
+                {% csrf_token %}
+                <tr>
+                  <td>{{associacao.id}}</td>
+                  <td>{{associacao.anchor.description}}</td>
+                  <td>{{associacao.plano.nome}}</td>
+                  <td>
+                    <span class="input-group-btn">
+                      <a href="{% url 'remover_associacao_anchor' associacao.id %}" class="btn btn-danger btn-xs">Excluir</a>
+                    </span>
+                  </td>
+                </tr>
+              </form>
+                {% endfor %}
+              </table>
+            </div>
+            </div>
+        </div>
+      </div>
+    </body>
+
+
+    </section>
+
+
+{% endblock conteudo %}

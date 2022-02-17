@@ -1,0 +1,49 @@
+{% extends 'associacao/form_exibir_associacao.html' %}
+{% load static %}
+{% block associacoes %}
+
+<body class="hold-transition skin-blue sidebar-mini">
+<!-- Main content -->
+
+      <div class="row">
+        <div class="col-md-12">
+
+            <div class="box box-primary">
+
+                <div class="box-header">
+              <h3 class="box-title">Âncoras   <i class="fa fa-long-arrow-right"></i>  Plano</h3>
+
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+              <table class="table table-hover">
+                <tr>
+                  <th style="width: 20px">ID</th>
+                  <th style="width: 300px">Âncora</th>
+                  <th>Plano</th>
+                </tr>
+                {% for associacao in associacoes %}
+              <form action="" method="post">
+              {% csrf_token %}
+
+                <tr>
+                  <td>{{associacao.id}}</td>
+                  <td>{{associacao.anchor.description}}</td>
+                  <td>{{associacao.plano.nome}}</td>
+                </tr>
+
+              </form>
+                {% endfor %}
+
+              </table>
+            </div>
+            <!-- /.box-body -->
+
+
+            </div>
+        </div>
+      </div>
+
+
+
+{% endblock associacoes %}

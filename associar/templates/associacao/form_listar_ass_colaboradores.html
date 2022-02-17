@@ -1,0 +1,48 @@
+{% extends 'associacao/form_cadastrar_associacao_colaborador.html' %}
+{% load static %}
+
+{% block associacoes %}
+
+      <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+
+                <div class="box-header">
+                    <h3 class="box-title">Colaborador   <i class="fa fa-long-arrow-right"></i>   Tag</h3>
+                </div>
+
+                <div class="box-body table-responsive no-padding">
+                  <table class="table table-hover">
+                    <tr>
+                      <th style="width: 20px">ID</th>
+                      <th style="width: 300px">Colaborador</th>
+                      <th style="width: 200px">Tag</th>
+                      <th ></th>
+                    </tr>
+                    {% for associacao in associacoes %}
+                  <form action="" method="post">
+                  {% csrf_token %}
+
+                    <tr>
+                      <td>{{associacao.id}}</td>
+                      <td><img class="direct-chat-img" src="/media/{{associacao.collaborator.foto}}" alt=""> {{associacao.collaborator.first_name}} {{associacao.collaborator.last_name}}</td>
+                      <td>{{associacao.tag.description}}</td>
+
+
+                      <td>
+                        <span class="input-group-btn">
+                          <a href="{% url 'remover_associacao_colaborador' associacao.id %}" class="btn btn-danger btn-xs">Excluir</a>
+                        </span>
+                      </td>
+                    </tr>
+
+                  </form>
+                    {% endfor %}
+                  </table>
+                </div>
+            </div>
+        </div>
+      </div>
+
+
+{% endblock associacoes %}

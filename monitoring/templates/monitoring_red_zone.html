@@ -1,0 +1,197 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block conteudo %}
+
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb">
+          <div class="col-sm-6">
+            <h1> Monitoramento Red Zone</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Monitoramento</a></li>
+              <li class="breadcrumb-item active">Red Zone</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+
+          <div class="row">
+                <!-- ./col -->
+              <div class="col-lg-6 col-6">
+                <!-- small box -->
+                <div class="small-box bg-danger">
+                  <div class="inner">
+                    <h3>Red Zone </h3>
+                    <h3> {{ qtd_in }} Colaboradores</h3>
+                  </div>
+                  <div class="icon">
+                    <i class="fas fa-users"></i>
+                  </div>
+                </div>
+              </div>
+              <!-- ./col -->
+          </div>
+
+
+        <div class="row">
+
+            <div class="col-md-6">
+                <!-- USERS LIST -->
+                <div class="card">
+                  <div class="card-header">
+                        <h4 class="card-title badge badge-danger" id="badgedangerin">{{qtd_in}}</h4>
+                        <h3 class="card-title">&ensp;Colaboradores na Red Zone</h3>
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
+                    </div>
+
+                  </div>
+                  <!-- /.card-header -->
+                  <div class="card-body p-0">
+                        <ul class="users-list clearfix eventsin">
+                            {% for collaborator in colls_in_redzone %}
+                              <li>
+                                    <img src="/media/{{collaborator.collaborator.foto}}" alt="Foto">
+                                    <a class="users-list-name" href="#">{{collaborator.collaborator.first_name}} {{collaborator.collaborator.last_name}}</a>
+                                    <span class="users-list-date">{{collaborator.tag.description}} </span>
+
+                                    {% if collaborator.battery >= 60 %}
+                                          <td>
+                                             <div class="progress">
+                                                <div class="progress-bar bg-success progress-bar-striped"  role="progressbar" aria-valuenow="{{collaborator.battery}}" aria-valuemin="0" aria-valuemax="100" style="width: {{collaborator.battery}}%">
+                                                  <span class="">Bateria {{collaborator.battery}}% </span>
+                                                </div>
+                                            </div>
+                                          </td>
+                                            {% else %}
+                                            <td>
+                                             <div class="progress">
+                                                <div class="progress-bar bg-danger progress-bar-striped"  role="progressbar" aria-valuenow="{{collaborator.battery}}" aria-valuemin="0" aria-valuemax="100" style="width: {{collaborator.battery}}%">
+                                                  <span class="">Bateria {{collaborator.battery}}% </span>
+                                                </div>
+                                            </div>
+                                          </td>
+                                    {% endif %}
+                              </li>
+                            {% endfor %}
+                        </ul>
+                        <!-- /.users-list -->
+                  </div>
+                  <!-- /.card-body -->
+                </div>
+                <!--/.card -->
+            </div>
+
+            <div class="col-md-6">
+                <!-- USERS LIST -->
+                <div class="card">
+                  <div class="card-header">
+                      <h4 class="card-title badge badge-primary" id="badgedangerout">{{qtd_out}} </h4>
+                    <h3 class="card-title">&ensp;Colaboradores fora da Red Zone</h3>
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
+                    </div>
+                  </div>
+                  <!-- /.card-header -->
+                  <div class="card-body p-0">
+                    <ul class="users-list clearfix eventsout">
+                       {% for collaborator in colls_out_redzone %}
+                          <li>
+                                <img src="/media/{{collaborator.collaborator.foto}}" alt="Foto" >
+                                <a class="users-list-name" href="#" >{{collaborator.collaborator.first_name}} {{collaborator.collaborator.last_name}}</a>
+                                <span class="users-list-date">{{collaborator.tag.description}} </span>
+
+                                {% if collaborator.battery >= 60 %}
+                                          <td>
+                                             <div class="progress">
+                                                <div class="progress-bar bg-success progress-bar-striped"  role="progressbar" aria-valuenow="{{collaborator.battery}}" aria-valuemin="0" aria-valuemax="100" style="width: {{collaborator.battery}}%">
+                                                  <span>{{collaborator.battery}}%</span>
+                                                </div>
+                                            </div>
+                                          </td>
+                                            {% else %}
+                                            <td>
+                                             <div class="progress">
+                                                <div class="progress-bar bg-danger progress-bar-striped"  role="progressbar" aria-valuenow="{{collaborator.battery}}" aria-valuemin="0" aria-valuemax="100" style="width: {{collaborator.battery}}%">
+                                                  <span >{{collaborator.battery}}%</span>
+                                                </div>
+                                            </div>
+                                          </td>
+                                    {% endif %}
+                          </li>
+                        {% endfor %}
+                    </ul>
+                    <!-- /.users-list -->
+                  </div>
+                  <!-- /.card-body -->
+                </div>
+                <!--/.card -->
+            </div>
+            <!-- /.col -->
+
+        </div>
+        <!-- /.row -->
+      </div>
+    </section>
+  </div>
+
+    <script>
+
+        const monitoringSocket = new WebSocket(
+            'ws://'
+            + window.location.host
+            + '/ws/redzone/'
+        );
+
+
+        monitoringSocket.onmessage = function(e) {
+            const eventos = JSON.parse(e.data);
+
+            document.querySelector('.inner').innerHTML = '<h3> Red Zone </h3> <h3>'+ eventos.eventos_red_zone.qtd_in +' Colaboradores</h3>';
+            document.querySelector('#badgedangerin').innerHTML = '<span class="badge badge-danger">'+ eventos.eventos_red_zone.qtd_in + '</span>';
+            document.querySelector('#badgedangerout').innerHTML = '<span class="badge badge-primary">'+ eventos.eventos_red_zone.qtd_out + '</span>';
+
+             var events_in = '';
+             for (var i = 0; i < eventos.eventos_red_zone.eventos_in.length; i++) {
+
+                    events_in += '<li> <img src="/media/' + eventos.eventos_red_zone.eventos_in[i].coll_photo + '" alt="Foto"> <a class="users-list-name" href="#">' + eventos.eventos_red_zone.eventos_in[i].coll_full_name + '</a> <span class="users-list-date">'+ eventos.eventos_red_zone.eventos_in[i].tag_description +'</span> ';
+
+                     if (eventos.eventos_red_zone.eventos_in[i].tag_battery >= 60){
+                            events_in += '<td> <div class="progress"> <div class="progress-bar bg-success progress-bar-striped"  role="progressbar" aria-valuenow="' + eventos.eventos_red_zone.eventos_in[i].tag_battery + '"aria-valuemin="0" aria-valuemax="100" style="width:'+ eventos.eventos_red_zone.eventos_in[i].tag_battery +'%"> <span class="">Bateria '+ eventos.eventos_red_zone.eventos_in[i].tag_battery + '% </span> </div> </div> </td> </li>';
+                     }else{
+                          events_in += '<td> <div class="progress"> <div class="progress-bar bg-danger progress-bar-striped"  role="progressbar" aria-valuenow="' + eventos.eventos_red_zone.eventos_in[i].tag_battery + '"aria-valuemin="0" aria-valuemax="100" style="width:'+  eventos.eventos_red_zone.eventos_in[i].tag_battery +'%"> <span class="">Bateria '+  eventos.eventos_red_zone.eventos_in[i].tag_battery + '% </span></div></div></td> </li>';
+                      }
+
+              }
+              document.querySelector('.eventsin').innerHTML = events_in;
+
+              var events_out = '';
+              for (var i = 0; i < eventos.eventos_red_zone.eventos_out.length; i++) {
+                    events_out += '<li> <img src="/media/' + eventos.eventos_red_zone.eventos_out[i].coll_photo + '"alt="Foto"> <a class="users-list-name" href="#">' + eventos.eventos_red_zone.eventos_out[i].coll_full_name + '</a> <span class="users-list-date">'+ eventos.eventos_red_zone.eventos_out[i].tag_description +'</span>';
+
+                    if (eventos.eventos_red_zone.eventos_out[i].tag_battery >= 60){
+                            events_out += '<td> <div class="progress"> <div class="progress-bar bg-success progress-bar-striped"  role="progressbar" aria-valuenow="' + eventos.eventos_red_zone.eventos_out[i].tag_battery + '"aria-valuemin="0" aria-valuemax="100" style="width:'+ eventos.eventos_red_zone.eventos_out[i].tag_battery +'%"> <span class="">Bateria '+ eventos.eventos_red_zone.eventos_out[i].tag_battery + '% </span> </div> </div> </td> </li>';
+                     }else{
+                          events_out += '<td> <div class="progress"> <div class="progress-bar bg-danger progress-bar-striped"  role="progressbar" aria-valuenow="' + eventos.eventos_red_zone.eventos_out[i].tag_battery + '"aria-valuemin="0" aria-valuemax="100" style="width:'+  eventos.eventos_red_zone.eventos_out[i].tag_battery +'%"> <span class="">Bateria '+  eventos.eventos_red_zone.eventos_out[i].tag_battery + '% </span></div></div></td> </li>';
+                      }
+              }
+               document.querySelector('.eventsout').innerHTML = events_out;
+
+        };
+
+        monitoringSocket.onclose = function(e) {
+            console.error('Monitoring socket closed unexpectedly');
+        };
+
+
+    </script>
+
+{% endblock conteudo %}

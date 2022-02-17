@@ -1,0 +1,107 @@
+{% extends 'indexBase.html' %}
+{% load static %}
+{% block conteudo %}
+
+<body class="hold-transition skin-blue sidebar-mini">
+<!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <div class="col-md-12">
+
+            <div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">Associar Tag ao Ativo</h3>
+            </div>
+
+      <form class="form-horizontal" method="post">
+        {% csrf_token %}
+      <div class="box-body">
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">TAG</label>
+            <div class="col-sm-5">
+               <select id="tag" name="tag" class="form-control select2" style="width: 100%;">
+                   {% for tag in lista_tag %}
+                  <option value="{{tag.id}}">{{tag.description}}</option>
+                  {% endfor %}
+                </select>
+                {{form_associacao.tag.errors}}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Ativo</label>
+            <div class="col-sm-5">
+               <select id="ativo" name="ativo" class="form-control select2" style="width: 100%;">
+                   {% for ativo in lista_ativos %}
+                  <option value="{{ativo.id}}">{{ativo.name}} </option>
+                   {% endfor %}
+                </select>
+                {{form_associacao.ativo.errors}}
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+
+                <input type="submit" class="btn btn-success" value="Associar">
+            </div>
+        </div>
+        </div>
+      </form>
+    </div>
+        </div>
+      </div>
+
+        {% for associacao in associacoes %}
+         <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+
+                <div class="box-header">
+                    <h3 class="box-title">Ativo   <i class="fa fa-long-arrow-right"></i>   Tag</h3>
+                </div>
+
+                <div class="box-body table-responsive no-padding">
+                  <table class="table table-hover">
+                    <tr>
+                      <th style="width: 20px">ID</th>
+                      <th style="width: 300px">Ativo</th>
+                      <th style="width: 200px">Tag</th>
+                      <th ></th>
+                    </tr>
+
+                  <form action="" method="post">
+                  {% csrf_token %}
+
+                    <tr>
+                      <td>{{associacao.id}}</td>
+                      <td><img class="direct-chat-img" src="/media/{{associacao.collaborator.foto}}" alt=""> {{associacao.ativo.name}}</td>
+                      <td>{{associacao.tag.description}}</td>
+
+
+                      <td>
+                        <span class="input-group-btn">
+                          <a href="{% url 'remover_associacao_ativo' associacao.id %}" class="btn btn-danger btn-xs">Excluir</a>
+                        </span>
+                      </td>
+                    </tr>
+
+                  </form>
+                      {% empty %}
+
+                    {% endfor %}
+                  </table>
+                </div>
+            </div>
+        </div>
+      </div>
+
+
+
+
+    </section>
+
+
+{% endblock conteudo %}
