@@ -3,7 +3,6 @@ from tag.models import Tag
 from collaborator.models import Collaborator
 
 
-# Create your models here.
 class EventoRedZone(models.Model):
 
     portal = models.CharField(max_length=15, null=False, blank=False)
@@ -14,3 +13,13 @@ class EventoRedZone(models.Model):
     battery = models.IntegerField(null=False, blank=False)
     status = models.IntegerField(null=False, blank=False)
     timestamp =  models.DateTimeField(null=True, blank=True)
+
+
+class EventoCore(models.Model):
+
+    id = models.BigAutoField(primary_key=True)
+    type_event = models.CharField(max_length=6, null=False, blank=False)
+    id_event = models.CharField(max_length=10, null=False, blank=False)
+    code = models.CharField(max_length=6, null=False, blank=False)
+    data = models.CharField(max_length=17, null=False, blank=False)
+    date = models.DateTimeField(null=False, blank=False)

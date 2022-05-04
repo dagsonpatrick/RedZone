@@ -84,3 +84,54 @@ class EventPortalDetalhes(APIView):
         #tmpObj = json.loads(tmpJson)
 
         return HttpResponse(json.dumps(eventos_red_zone))
+
+class EventCoreList(APIView):
+
+    def post(self, request, format=None):
+
+        evento = request.data
+
+        type_event = evento.get('type')
+        id_event = evento.get('id')
+        code = evento.get('code')
+        data = evento.get('data')
+        date = evento.get('date')
+
+        print(evento)
+
+        # for evento in lista_eventos:
+        #
+        #     portal = evento.get('portal')
+        #     tag = tag_service.listar_tag_address(evento.get('tag'))
+        #     sentido = evento.get('sentido')
+        #     temperature = evento.get('temperature')
+        #     battery = evento.get('battery')
+        #     timestamp = evento.get('timestamp')
+        #
+        #     collaborator_ass_tag = associar_service.buscar_colaborador_ass_tag(tag)
+        #     collaborator = collaborator_ass_tag.collaborator
+        #
+        #     if sentido == 'Entrou':
+        #         status_presenca = 1
+        #     else:
+        #         status_presenca = 0
+        #
+        #
+        #
+        #     evento_novo = EventosRedZone(portal=portal,
+        #                                 tag=tag,
+        #                                 collaborator=collaborator,
+        #                                 sentido=sentido,
+        #                                 temperature=temperature,
+        #                                 battery=battery,
+        #                                 status=status_presenca,
+        #                                 timestamp=timestamp)
+        #     evento_service.cadastrar_evento(evento_novo)
+        #
+        #     collaborators_in_redzone = evento_service.collaborators_within_redzone()
+        #     collaborators_out_redzone = evento_service.collaborators_outside_redzone()
+        #     eventos_red_zone = evento_service.create_info_eventos(collaborators_in_redzone, collaborators_out_redzone)
+        #     asyncio.new_event_loop().run_until_complete(sendWebsockets(eventos_red_zone))
+
+
+        return Response("OK", status=status.HTTP_201_CREATED)
