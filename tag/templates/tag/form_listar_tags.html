@@ -7,13 +7,10 @@
       <div class="container-fluid">
         <div class="row mb">
           <div class="col-sm-6">
-            <h1>Tags cadastradas</h1>
+            <h1>Tags cadastradas no sistema</h1>
           </div>
           <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Tag</a></li>
-              <li class="breadcrumb-item active">Lista</li>
-            </ol>
+              <a href="{% url 'cadastrar_tag' %}" class="btn btn-success float-right"> Cadatrar <i class="nav-icon fas fa fa-tags"></i></a>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -30,13 +27,12 @@
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                    <tr>
-                      <th>ID</th>
                       <th>Descrição</th>
-                      <th tyle="width: 60px">MAC Address</th>
-                      <th>Temperatura</th>
-                      <th>Bateria</th>
-                      <th></th>
-                      <th style="width: 13%"> <a href="{% url 'cadastrar_tag' %}" class="btn btn-success float-right"> Cadatrar <i class="nav-icon fas fa fa-tags"></i></a></th>
+                      <th class="text-center">MAC Address</th>
+                      <th class="text-center">Temperatura</th>
+                      <th class="text-center" >Bateria</th>
+                      <th style="width: 10px" class="text-center"><i class="nav-icon fas fa-edit"></i></th>
+                      <th style="width: 10px" class="text-center"><i class="far fa-trash-alt"></i></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -44,16 +40,15 @@
                  <form action="" method="post">
                   {% csrf_token %}
                   <tr>
-                        <td>{{tag.id}}</td>
                         <td>{{tag.description}}</td>
-                        <td>{{tag.address}}</td>
+                        <td class="text-center">{{tag.address}}</td>
 
                         {% if tag.temperature > 23 %}
-                          <td>
-                            <span class="badge badge-danger">{{tag.temperature}} C°</span>
+                          <td class="text-center">
+                            <span  class="badge badge-danger">{{tag.temperature}} C°</span>
                           </td>
                         {% else %}
-                            <td>
+                            <td class="text-center">
                                 <span class="badge badge-info">{{tag.temperature}} C°</span>
                             </td>
                         {% endif %}
@@ -62,7 +57,7 @@
                           <td>
                              <div class="progress">
                                 <div class="progress-bar bg-success progress-bar-striped"  role="progressbar" aria-valuenow="{{tag.battery}}" aria-valuemin="0" aria-valuemax="100" style="width: {{tag.battery}}%">
-                                  <span class="">{{tag.battery}}% </span>
+                                  <span class="text-center">{{tag.battery}}% </span>
                                 </div>
                             </div>
                           </td>
@@ -70,7 +65,7 @@
                             <td>
                              <div class="progress">
                                 <div class="progress-bar bg-danger progress-bar-striped"  role="progressbar" aria-valuenow="{{tag.battery}}" aria-valuemin="0" aria-valuemax="100" style="width: {{tag.battery}}%">
-                                  <span class="">{{tag.battery}}% </span>
+                                  <span class="text-center">{{tag.battery}}% </span>
                                 </div>
                             </div>
                           </td>
@@ -99,13 +94,12 @@
                 </tbody>
                 <tfoot>
                    <tr>
-                      <th>ID</th>
                       <th>Descrição</th>
-                      <th tyle="width: 60px">MAC Address</th>
-                      <th>Temperatura</th>
-                      <th>Bateria</th>
-                      <th style="width: 10px"></th>
-                      <th style="width: 10px"></th>
+                      <th class="text-center">MAC Address</th>
+                      <th class="text-center">Temperatura</th>
+                      <th class="text-center" >Bateria</th>
+                      <th style="width: 10px" class="text-center"><i class="nav-icon fas fa-edit"></i></th>
+                      <th style="width: 10px" class="text-center"><i class="far fa-trash-alt"></i></th>
                     </tr>
                 </tfoot>
               </table>

@@ -37,12 +37,7 @@
 
         <div class="row">
           <div class="col-8">
-            <div class="icheck-primary">
-              <input type="checkbox" id="remember">
-              <label for="remember">
-                Lembre me
-              </label>
-            </div>
+
           </div>
           <!-- /.col -->
           <div class="col-4">
@@ -64,22 +59,50 @@
 <!-- jQuery 3 -->
 <script src="{% static 'app/plugins/jquery/jquery.min.js' %}" type="text/javascript"></script>
 
-{% if messages%}
-          {% for message in messages %}
-          <script>
-           $(document).ready( function mostrarModal() {
-            Swal.fire({
-              position: 'top-center',
-              type: 'success',
-              title: 'Cadastro Realizado com Sucesso',
-              text: 'Seja Bem vindo(a), '+ "{{message}}",
-              showConfirmButton: false,
-              timer: 5000,
-              footer:'www.a4solutions.com.br'
-            });
+{% if messages %}
+
+    {% for message in messages %}
+
+      {% if 'success' == message.tags %}
+        <script>
+         $(document).ready( function mostrarModal() {
+          Swal.fire({
+            position: 'top-center',
+            type: 'success',
+            title: 'Cadastro Realizado com Sucesso',
+            text: 'Seja Bem vindo(a), '+ "{{message}}",
+            showConfirmButton: false,
+            timer: 5000,
+            footer:'www.a4solutions.com.br'
           });
-          </script>
-          {% endfor %}
+        });
+        </script>
+
+      {% elif 'info' == message.tags %}
+        <script>
+          $(function () {
+            $('#username').val("{{message}}");
+          });
+        </script>
+
+      {% elif 'error' == message.tags %}
+        <script>
+         $(document).ready( function mostrarModal() {
+          Swal.fire({
+            position: 'top-center',
+            type: 'error',
+            title: 'Falha na autenticação do usuário',
+            text: 'Atenção, '+ "{{message}}",
+            showConfirmButton: false,
+            timer: 3000,
+            footer:'www.a4solutions.com.br'
+          });
+        });
+        </script>
+      {% endif %}
+
+    {% endfor %}
+
 {% endif %}
 
 

@@ -22,19 +22,26 @@ def cadastrar_usuario(request):
             last_name = form_usuario.cleaned_data["last_name"]
             email = form_usuario.cleaned_data["email"]
             profile_picture = form_usuario.cleaned_data["profile_picture"]
+
+            # Usuário não adicionou foto de perfil
+            if profile_picture is None:
+
+                if first_name[-1:] == 'a' or first_name[-1:] == 'A':
+                    profile_picture = "foto_perfil/avatar_feminino.png"
+                else:
+                    profile_picture = "foto_perfil/avatar_masculino.png"
+
             password = form_usuario.cleaned_data["password1"]
             usuario_novo = User(first_name = first_name, last_name = last_name, email = email, password = password, profile_picture = profile_picture)
             usuario_service.cadastrar_usuario(usuario_novo)
             messages.success(request,  first_name+' '+last_name)
+            messages.info(request, email)
             return redirect('logar_usuario')
-
     else:
-
         form_usuario = UsuarioForm()
     return render(request,'user/register.html',{"form_usuario": form_usuario})
 
 def logar_usuario(request):
-
     if request.method == "POST":
         form_login = LoginForm(data=request.POST)
         if form_login.is_valid():
@@ -43,10 +50,11 @@ def logar_usuario(request):
             usuario = authenticate(request, username=username, password=password)
             if usuario is not None:
                 login(request, usuario)
+                usuario_service.registrar_login_usuario(usuario)
                 return redirect('home')
-            else:
-                messages.error(request,'As credenciais do usuário estão incorretas')
-                return redirect('logar_usuario')
+        else:
+            messages.error(request, 'as credenciais do usuário estão incorretas')
+            return redirect('logar_usuario')
     else:
         form_login = LoginForm()
     return render(request, 'user/login.html', {"form_login": form_login})

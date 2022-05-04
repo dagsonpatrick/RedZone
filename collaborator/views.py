@@ -22,9 +22,7 @@ def cadastrar_collaborator(request):
             if form_collaborator.cleaned_data["foto"]:
                 foto = form_collaborator.cleaned_data["foto"]
             else:
-                foto = 'fotoPerfilColaborador/a4solutions.png'
-
-
+                foto = 'fotoPerfilColaborador/avatar_a4.jpg'
 
             collaborator_nova = Collaborator(first_name=first_name,
                                              last_name=last_name,
@@ -33,6 +31,7 @@ def cadastrar_collaborator(request):
                                              statusAssociacao=0)
 
             collaborator_service.cadastrar_collaborator(collaborator_nova)
+            messages.success(request, str(first_name) +' ' + str(last_name))
             return redirect('listar_collaborators')
     else:
         form_collaborator = CollaboratorForm()
@@ -64,6 +63,7 @@ def editar_collaborator(request, id):
                                          foto=foto)
 
         collaborator_service.editar_collaborator(collaborator, collaborator_nova)
+        messages.info(request, str(first_name) +' ' + str(last_name))
         return redirect('listar_collaborators')
     return render(request, 'collaborator/form_editar_collaborator.html', {'collaborator': collaborator})
 
@@ -76,9 +76,10 @@ def remover_collaborator(request, id):
     if associcao is None:
         if request.method == "POST":
             collaborator_service.remover_collaborator(collaborator_bd)
+            messages.warning(request, str(collaborator_bd.first_name) + ' ' + str(collaborator_bd.last_name))
             return redirect('listar_collaborators')
         return render(request, 'collaborator/confirma_exclusao.html', {'collaborator':collaborator_bd})
     else:
         collaborator = associcao.collaborator.first_name + ' ' + associcao.collaborator.last_name
-        messages.error(request, 'O colaborador: ' + collaborator + ' está associado a ' + associcao.tag.description)
+        messages.error(request, 'O colaborador ' + collaborator + ' está associado a ' + associcao.tag.description)
         return redirect('listar_collaborators')

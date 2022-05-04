@@ -37,6 +37,10 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
         return self.email
 
 
+class Usuario_Acesso(models.Model):
 
+    usuario = models.ForeignKey(Usuario,on_delete=models.CASCADE)
+    date_login = models.DateTimeField(default=timezone.now, null=False, blank=False)
+    date_logout = models.DateTimeField(null=True, blank=True)
 
 

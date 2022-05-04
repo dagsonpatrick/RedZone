@@ -7,13 +7,10 @@
       <div class="container-fluid">
         <div class="row mb">
           <div class="col-sm-6">
-            <h1>Colaboradores cadastrados</h1>
+            <h1>Colaboradores cadastrados no sistema</h1>
           </div>
           <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Colaborador</a></li>
-              <li class="breadcrumb-item active">Lista</li>
-            </ol>
+            <a href="{% url 'cadastrar_collaborator' %}" class="btn btn-success float-right">Cadatrar <i class="fa fa-user-plus nav-icon"></i></a>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -30,13 +27,12 @@
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                  <th style="width: 5px">ID</th>
                   <th style="width: 10px">Foto</th>
                   <th>Nome</th>
                   <th>Sobrenome</th>
                   <th>Email</th>
-                  <th ></th>
-                 <th style="width: 13%"> <a href="{% url 'cadastrar_collaborator' %}" class="btn btn-success float-right">Cadatrar <i class="fa fa-user-plus nav-icon"></i></a></th>
+                  <th style="width: 10px" class="text-center"><i class="nav-icon fas fa-edit"></i></th>
+                  <th style="width: 10px" class="text-center"><i class="far fa-trash-alt"></i></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -44,7 +40,6 @@
                  <form action="" method="post">
                   {% csrf_token %}
                   <tr>
-                    <td>{{collaborator.id}}</td>
                     <td><img class="direct-chat-img" src="/media/{{collaborator.foto}}" alt=""></td>
                     <td>{{collaborator.first_name}}</td>
                     <td>{{collaborator.last_name}}</td>
@@ -63,18 +58,15 @@
                 </form>
                 {% endfor %}
 
-
-
                 </tbody>
                 <tfoot>
                 <tr>
-                  <th style="width: 5px">ID</th>
                   <th style="width: 10px">Foto</th>
                   <th>Nome</th>
                   <th>Sobrenome</th>
                   <th>Email</th>
-                  <th style="width: 10px"></th>
-                  <th style="width: 10px"></th>
+                  <th style="width: 10px" class="text-center"><i class="nav-icon fas fa-edit"></i></th>
+                  <th style="width: 10px" class="text-center"><i class="far fa-trash-alt"></i></th>
                 </tr>
                 </tfoot>
               </table>
@@ -93,22 +85,74 @@
 <script src="{% static 'app/plugins/jquery/jquery.min.js' %}" type="text/javascript"></script>
 
 {% if messages %}
-          {% for message in messages %}
-          <script>
+  {% for message in messages %}
+
+    {% if 'success' == message.tags %}
+      <script>
+         $(document).ready( function mostrarModal() {
+          Swal.fire({
+            position: 'top-center',
+            type: 'success',
+            title: 'Colaborador {{message}}',
+            text: 'Cadastro com Sucesso',
+            showConfirmButton: false,
+            timer: 3000,
+            footer:'www.a4solutions.com.br'
+          });
+        });
+      </script>
+    {% endif %}
+
+    {% if 'info' == message.tags %}
+      <script>
+       $(document).ready( function mostrarModal() {
+        Swal.fire({
+          position: 'top-center',
+          type: 'success',
+          title: 'Colaborador {{message}}',
+          text: "Alterado com Sucesso",
+          showConfirmButton: false,
+          timer: 3000,
+          footer:'www.a4solutions.com.br'
+        });
+      });
+      </script>
+    {% endif %}
+
+    {% if 'warning' == message.tags %}
+      <script>
+       $(document).ready( function mostrarModal() {
+        Swal.fire({
+          position: 'top-center',
+          type: 'success',
+          title: 'Colaborador {{message}}',
+          text: "Removido com Sucesso",
+          showConfirmButton: false,
+          timer: 3000,
+          footer:'www.a4solutions.com.br'
+        });
+      });
+      </script>
+    {% endif %}
+
+    {% if 'error' == message.tags %}
+      <script>
            $(document).ready( function mostrarModal() {
-           //console.log(message);
             Swal.fire({
               position: 'top-center',
               type: 'error',
               title: '{{ message }}',
-              text: 'Favor remover a associação do colaborador primeiro',
+              text: 'Favor remover a associação ao colaborador primeiro',
               showConfirmButton: false,
               timer: 7000,
               footer:'www.a4solutions.com.br'
             });
           });
-          </script>
-          {% endfor %}
+      </script>
+    {% endif %}
+
+
+  {% endfor %}
 {% endif %}
 
 {% endblock conteudo %}

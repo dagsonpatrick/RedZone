@@ -64,26 +64,7 @@
 
     </ul>
 
-    <!-- SEARCH FORM -->
-    <form class="form-inline ml-3">
-      <div class="input-group input-group-sm">
-        <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-        <div class="input-group-append">
-          <button class="btn btn-navbar" type="submit">
-            <i class="fas fa-search"></i>
-          </button>
-        </div>
-      </div>
-    </form>
 
-    <!-- Right navbar links -->
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-        <a class="nav-link"  href="#">
-          <i class="fas fa-th-large"></i>
-        </a>
-      </li>
-    </ul>
   </nav>
   <!-- /.navbar -->
 
@@ -93,7 +74,7 @@
     <a href="{% url 'home' %}" class="brand-link">
       <img src="/media/avatar/avatar.png" alt="A4 Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light">Solutions</span>
+      <span class="brand-text font-weight-light">SMART RED ZONE</span>
     </a>
 
     <!-- Sidebar -->
@@ -137,52 +118,24 @@
 
            <!-- Menu Colaboradores -->
            <li class="nav-item has-treeview">
-              <a href="#" class="nav-link">
+              <a href="{% url 'listar_collaborators' %}" class="nav-link">
                 <i class="nav-icon fas fa-users"></i>
                 <p>
                   Colaboradores
                   <i class="fas fa-angle-left right"></i>
                 </p>
               </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{% url 'cadastrar_collaborator' %}" class="nav-link">
-                  <i class="fa fa-user-plus nav-icon"></i>
-                  <p>Cadastrar</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{% url 'listar_collaborators' %}" class="nav-link">
-                  <i class="fa fa-list nav-icon"></i>
-                  <p>Listar</p>
-                </a>
-              </li>
-            </ul>
           </li>
 
            <!-- Menu Tags -->
            <li class="nav-item has-treeview">
-              <a href="#" class="nav-link">
+              <a href="{% url 'listar_tags' %}" class="nav-link">
                 <i class="nav-icon fas fa fa-tags"></i>
                 <p>
                   Tags
                   <i class="fas fa-angle-left right"></i>
                 </p>
               </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{% url 'cadastrar_tag' %}" class="nav-link">
-                  <i class="fa fa-plus nav-icon"></i>
-                  <p>Cadastrar</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{% url 'listar_tags' %}" class="nav-link">
-                  <i class="fa fa-list nav-icon"></i>
-                  <p>Listar</p>
-                </a>
-              </li>
-            </ul>
           </li>
 
            <!-- Menu Associar -->
