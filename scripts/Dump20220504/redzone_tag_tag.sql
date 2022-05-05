@@ -16,29 +16,31 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `django_session`
+-- Table structure for table `tag_tag`
 --
 
-DROP TABLE IF EXISTS `django_session`;
+DROP TABLE IF EXISTS `tag_tag`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `django_session` (
-  `session_key` varchar(40) NOT NULL,
-  `session_data` longtext NOT NULL,
-  `expire_date` datetime(6) NOT NULL,
-  PRIMARY KEY (`session_key`),
-  KEY `django_session_expire_date_a5c62663` (`expire_date`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE `tag_tag` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `description` varchar(50) NOT NULL,
+  `address` varchar(15) NOT NULL,
+  `temperature` int NOT NULL,
+  `battery` int NOT NULL,
+  `statusAssociacao` int DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `django_session`
+-- Dumping data for table `tag_tag`
 --
 
-LOCK TABLES `django_session` WRITE;
-/*!40000 ALTER TABLE `django_session` DISABLE KEYS */;
-INSERT INTO `django_session` VALUES ('e2wdq8peux8i35ldq1omks8az6r6n19f','MWMwM2QzZTYwZjEwNzQ5NjA0N2M5ZGM0MWU5NTM3MTNjZDI2ZDVhNTp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI0ZDk0MGFlZWE5NWM5Nzc1Y2I0NDkyOGQ4ODAzZTU5Yzk5ZDRkNjAzIn0=','2022-03-03 17:50:55.840221');
-/*!40000 ALTER TABLE `django_session` ENABLE KEYS */;
+LOCK TABLES `tag_tag` WRITE;
+/*!40000 ALTER TABLE `tag_tag` DISABLE KEYS */;
+INSERT INTO `tag_tag` VALUES (1,'TAG-02','MAC-02',20,59,1),(2,'TAG-01','MAC-01',23,60,1),(3,'TAG-03','MAC-03',24,80,1);
+/*!40000 ALTER TABLE `tag_tag` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -50,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-02-17 15:02:07
+-- Dump completed on 2022-05-04 16:54:42

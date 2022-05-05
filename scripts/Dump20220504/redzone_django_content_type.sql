@@ -16,37 +16,29 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `accounts_usuario`
+-- Table structure for table `django_content_type`
 --
 
-DROP TABLE IF EXISTS `accounts_usuario`;
+DROP TABLE IF EXISTS `django_content_type`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `accounts_usuario` (
+CREATE TABLE `django_content_type` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `password` varchar(128) NOT NULL,
-  `email` varchar(254) NOT NULL,
-  `first_name` varchar(15) DEFAULT NULL,
-  `last_name` varchar(15) DEFAULT NULL,
-  `last_login` datetime(6) DEFAULT NULL,
-  `is_superuser` tinyint(1) NOT NULL,
-  `is_staff` tinyint(1) NOT NULL,
-  `is_active` tinyint(1) NOT NULL,
-  `date_joined` datetime(6) NOT NULL,
-  `profile_picture` varchar(100) DEFAULT NULL,
+  `app_label` varchar(100) NOT NULL,
+  `model` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+  UNIQUE KEY `django_content_type_app_label_model_76bd3d3b_uniq` (`app_label`,`model`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `accounts_usuario`
+-- Dumping data for table `django_content_type`
 --
 
-LOCK TABLES `accounts_usuario` WRITE;
-/*!40000 ALTER TABLE `accounts_usuario` DISABLE KEYS */;
-INSERT INTO `accounts_usuario` VALUES (1,'pbkdf2_sha256$180000$zxh9LZE6lAwB$uUFyG0zDGlbwEW4/rI9gyz1Dw8l76r+b+bcgot4OwW8=','dagson.souza@alertsystem.com.br','Dagson','Souza','2022-02-17 17:50:55.838226',0,0,1,'2021-01-09 14:13:39.804162','foto_perfil/09ff5e73-6efe-4fe3-9ea5-b9d59e85f2b6.jpg');
-/*!40000 ALTER TABLE `accounts_usuario` ENABLE KEYS */;
+LOCK TABLES `django_content_type` WRITE;
+/*!40000 ALTER TABLE `django_content_type` DISABLE KEYS */;
+INSERT INTO `django_content_type` VALUES (6,'accounts','usuario'),(11,'accounts','usuario_acesso'),(1,'admin','logentry'),(12,'api','eventocore'),(10,'api','eventoredzone'),(9,'associar','associacaocollaborator'),(3,'auth','group'),(2,'auth','permission'),(7,'collaborator','collaborator'),(4,'contenttypes','contenttype'),(5,'sessions','session'),(8,'tag','tag');
+/*!40000 ALTER TABLE `django_content_type` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -58,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-02-17 15:02:08
+-- Dump completed on 2022-05-04 16:54:39

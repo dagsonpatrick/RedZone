@@ -129,13 +129,33 @@
 
            <!-- Menu Tags -->
            <li class="nav-item has-treeview">
-              <a href="{% url 'listar_tags' %}" class="nav-link">
+              <a href="" class="nav-link">
                 <i class="nav-icon fas fa fa-tags"></i>
                 <p>
                   Tags
                   <i class="fas fa-angle-left right"></i>
                 </p>
               </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{% url 'cadastrar_tag' %}" class="nav-link">
+                    <i class="fa fa-plus nav-icon"></i>
+                    <p>Cadastrar</p>
+                  </a>
+                </li>
+                 <li class="nav-item">
+                    <a href="{% url 'listar_tags' %}" class="nav-link">
+                      <i class="fas fa-list nav-icon"></i>
+                      <p>Listar</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{% url 'gerenciar_tags' %}" class="nav-link">
+                    <i class="fas fa-tools nav-icon"></i>
+                    <p>Gerenciar</p>
+                  </a>
+                </li>
+              </ul>
           </li>
 
            <!-- Menu Associar -->

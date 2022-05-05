@@ -5,4 +5,4 @@ class TagForm(forms.ModelForm):
 
     class Meta:
         model = Tag
-        fields = '__all__'
+        fields = ['description', 'uuid']

@@ -8,13 +8,10 @@
       <div class="container-fluid">
         <div class="row mb">
           <div class="col-sm-6">
-            <h1>Cadastrar Tag</h1>
+            <h1>Cadastrar Tag Core</h1>
           </div>
           <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Tag</a></li>
-              <li class="breadcrumb-item active">Cadastrar</li>
-            </ol>
+
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -26,7 +23,7 @@
       <div class="container-fluid">
         <div class="row">
           <!-- left column -->
-          <div class="col-md-10">
+          <div class="col-md-12">
             <!-- general form elements -->
             <div class="card card-primary">
 
@@ -42,21 +39,9 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="address">MAC Address</label>
-                        <input type="text" class="form-control" id="address" name="address" placeholder="MAC Address" required>
-                       {{form_tag.address.errors}}
-                    </div>
-
-                    <div class="form-group">
-                        <label for="temperature">Temperatura</label>
-                        <input type="text" class="form-control" id="temperature" name="temperature" placeholder="Temperatura" required>
-                       {{form_tag.temperature.errors}}
-                    </div>
-
-                    <div class="form-group">
-                        <label for="battery">Bateria</label>
-                        <input type="text" class="form-control" id="battery" name="battery" placeholder="Bateria" required>
-                      {{form_tag.battery.errors}}
+                        <label for="uuid">UUID</label>
+                        <input type="text" class="form-control" id="uuid" name="uuid" placeholder="UUID da TAG" required>
+                       {{form_tag.uuid.errors}}
                     </div>
 
                 </div>

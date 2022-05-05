@@ -140,7 +140,7 @@ LOGIN_URL = 'logar_usuario'
 
 LANGUAGE_CODE = 'pt-br'
 
-USE_TZ = True
+USE_TZ = False
 
 TIME_ZONE = 'America/Sao_Paulo'
 

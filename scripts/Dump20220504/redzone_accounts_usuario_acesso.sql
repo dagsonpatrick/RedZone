@@ -16,31 +16,31 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `collaborator_collaborator`
+-- Table structure for table `accounts_usuario_acesso`
 --
 
-DROP TABLE IF EXISTS `collaborator_collaborator`;
+DROP TABLE IF EXISTS `accounts_usuario_acesso`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `collaborator_collaborator` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `first_name` varchar(15) NOT NULL,
-  `last_name` varchar(15) NOT NULL,
-  `email` varchar(70) NOT NULL,
-  `foto` varchar(100) DEFAULT NULL,
-  `statusAssociacao` int DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+CREATE TABLE `accounts_usuario_acesso` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `date_login` datetime(6) NOT NULL,
+  `date_logout` datetime(6) DEFAULT NULL,
+  `usuario_id` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `accounts_usuario_ace_usuario_id_a52f55a8_fk_accounts_` (`usuario_id`),
+  CONSTRAINT `accounts_usuario_ace_usuario_id_a52f55a8_fk_accounts_` FOREIGN KEY (`usuario_id`) REFERENCES `accounts_usuario` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `collaborator_collaborator`
+-- Dumping data for table `accounts_usuario_acesso`
 --
 
-LOCK TABLES `collaborator_collaborator` WRITE;
-/*!40000 ALTER TABLE `collaborator_collaborator` DISABLE KEYS */;
-INSERT INTO `collaborator_collaborator` VALUES (1,'Dagson','Souza','dagson.souza@alertsystem.com.br','fotoPerfilColaborador/49bf1c03-ea48-468d-bfed-04028774cf16.png',1);
-/*!40000 ALTER TABLE `collaborator_collaborator` ENABLE KEYS */;
+LOCK TABLES `accounts_usuario_acesso` WRITE;
+/*!40000 ALTER TABLE `accounts_usuario_acesso` DISABLE KEYS */;
+INSERT INTO `accounts_usuario_acesso` VALUES (1,'2022-05-04 13:36:35.487671',NULL,1),(2,'2022-05-04 13:36:51.589291',NULL,1),(4,'2022-05-04 13:43:30.422691',NULL,3),(5,'2022-05-04 13:47:46.181205',NULL,1),(6,'2022-05-04 14:32:25.662622',NULL,1),(7,'2022-05-04 15:27:34.420410',NULL,3),(8,'2022-05-04 18:11:33.904508',NULL,1);
+/*!40000 ALTER TABLE `accounts_usuario_acesso` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -52,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-02-17 15:02:09
+-- Dump completed on 2022-05-04 16:54:41

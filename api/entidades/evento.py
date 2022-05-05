@@ -4,11 +4,12 @@
 
 class Evento():
 
-    def __init__(self, type_event, id_event, code, data, date):
+    def __init__(self, type_event, id_event, code, uuid, battery, date):
         self.__type_event = type_event
         self.__id_event = id_event
         self.__code = code
-        self.__data = data
+        self.__uuid = uuid
+        self.__battery = battery
         self.__date = date
 
 
@@ -37,12 +38,21 @@ class Evento():
         self.__code = code
 
     @property
-    def data(self):
-        return self.__data
+    def uuid(self):
+        return self.__uuid
 
-    @data.setter
-    def data(self, data):
-        self.__data = data
+    @uuid.setter
+    def uuid(self, uuid):
+        self.__uuid = uuid
+
+    @property
+    def battery(self):
+        return self.__battery
+
+    @battery.setter
+    def battery(self, battery):
+        self.__battery = battery
+
 
     @property
     def date(self):

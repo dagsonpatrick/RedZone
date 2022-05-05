@@ -16,27 +16,31 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `auth_group`
+-- Table structure for table `collaborator_collaborator`
 --
 
-DROP TABLE IF EXISTS `auth_group`;
+DROP TABLE IF EXISTS `collaborator_collaborator`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `auth_group` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(150) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE `collaborator_collaborator` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `first_name` varchar(15) NOT NULL,
+  `last_name` varchar(15) NOT NULL,
+  `email` varchar(70) NOT NULL,
+  `foto` varchar(100) DEFAULT NULL,
+  `statusAssociacao` int DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `auth_group`
+-- Dumping data for table `collaborator_collaborator`
 --
 
-LOCK TABLES `auth_group` WRITE;
-/*!40000 ALTER TABLE `auth_group` DISABLE KEYS */;
-/*!40000 ALTER TABLE `auth_group` ENABLE KEYS */;
+LOCK TABLES `collaborator_collaborator` WRITE;
+/*!40000 ALTER TABLE `collaborator_collaborator` DISABLE KEYS */;
+INSERT INTO `collaborator_collaborator` VALUES (1,'Dagson','Souza','dagson.souza@a4solutions.com.br','fotoPerfilColaborador/49bf1c03-ea48-468d-bfed-04028774cf16.png',1),(2,'Dhymas','Sventkauskas','dhymas@a4solutions.com.br','fotoPerfilColaborador/afa08236-7183-4d81-82b9-a73dfcca08a1.jpg',1),(3,'André','Anjos','andre.anjos@a4solutions.com.br','fotoPerfilColaborador/063a3d59-7433-4223-ab14-83d379b9f3d2.jpg',1);
+/*!40000 ALTER TABLE `collaborator_collaborator` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -48,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-02-17 15:02:06
+-- Dump completed on 2022-05-04 16:54:41

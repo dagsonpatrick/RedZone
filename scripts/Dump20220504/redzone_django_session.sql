@@ -16,37 +16,29 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `django_admin_log`
+-- Table structure for table `django_session`
 --
 
-DROP TABLE IF EXISTS `django_admin_log`;
+DROP TABLE IF EXISTS `django_session`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `django_admin_log` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `action_time` datetime(6) NOT NULL,
-  `object_id` longtext,
-  `object_repr` varchar(200) NOT NULL,
-  `action_flag` smallint unsigned NOT NULL,
-  `change_message` longtext NOT NULL,
-  `content_type_id` int DEFAULT NULL,
-  `user_id` int NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `django_admin_log_content_type_id_c4bce8eb_fk_django_co` (`content_type_id`),
-  KEY `django_admin_log_user_id_c564eba6_fk_accounts_usuario_id` (`user_id`),
-  CONSTRAINT `django_admin_log_content_type_id_c4bce8eb_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`),
-  CONSTRAINT `django_admin_log_user_id_c564eba6_fk_accounts_usuario_id` FOREIGN KEY (`user_id`) REFERENCES `accounts_usuario` (`id`),
-  CONSTRAINT `django_admin_log_chk_1` CHECK ((`action_flag` >= 0))
+CREATE TABLE `django_session` (
+  `session_key` varchar(40) NOT NULL,
+  `session_data` longtext NOT NULL,
+  `expire_date` datetime(6) NOT NULL,
+  PRIMARY KEY (`session_key`),
+  KEY `django_session_expire_date_a5c62663` (`expire_date`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `django_admin_log`
+-- Dumping data for table `django_session`
 --
 
-LOCK TABLES `django_admin_log` WRITE;
-/*!40000 ALTER TABLE `django_admin_log` DISABLE KEYS */;
-/*!40000 ALTER TABLE `django_admin_log` ENABLE KEYS */;
+LOCK TABLES `django_session` WRITE;
+/*!40000 ALTER TABLE `django_session` DISABLE KEYS */;
+INSERT INTO `django_session` VALUES ('0g0nbub63fb4h0yow2b4nevtkt0r0fyo','NGIxMGU1NDlkYmE2Y2MzM2M3YjJlNWFlZGU3Mjc2MDAwNDlhZTAyYjp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI0ZDk0MGFlZWE5NWM5Nzc1Y2I0NDkyOGQ4ODAzZTU5Yzk5ZDRkNjAzIiwiX3Nlc3Npb25faW5pdF90aW1lc3RhbXBfIjoxNjUxNjg3OTI0LjU3MzgwNTh9','2022-05-18 18:12:04.671592'),('e2wdq8peux8i35ldq1omks8az6r6n19f','MWMwM2QzZTYwZjEwNzQ5NjA0N2M5ZGM0MWU5NTM3MTNjZDI2ZDVhNTp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI0ZDk0MGFlZWE5NWM5Nzc1Y2I0NDkyOGQ4ODAzZTU5Yzk5ZDRkNjAzIn0=','2022-03-03 17:50:55.840221');
+/*!40000 ALTER TABLE `django_session` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -58,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-02-17 15:02:05
+-- Dump completed on 2022-05-04 16:54:40

@@ -3,6 +3,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from .entidades.eventoredzone import EventosRedZone
+from .entidades.evento import Evento
 from .services import evento_service
 from tag.services import tag_service
 from associar.services import associar_service
@@ -96,8 +97,24 @@ class EventCoreList(APIView):
         code = evento.get('code')
         data = evento.get('data')
         date = evento.get('date')
+        uuid = data[:8]
+        battery = data[8:]
+        print(f'UUID: {uuid} Tamanho: {len(uuid)}')
+        #print(f'BATTERY: {battery} Tamanho: {len(battery)}')
 
-        print(evento)
+        tag = tag_core_service.buscar_tag_uuid(uuid)
+
+        if tag:
+            print(tag)
+        else:
+            print('TAG NAO EXISTE NO BD')
+            tag = Evento(type_event, id_event, code, uuid, battery, date)
+            tag_core_service.cadastrar_tag_automatico(tag)
+
+        # 8 primeiros digitos é o UUID (MAC)
+        # 8 ultimos é o nivel da bateria em mV (1000mv = 1volt)
+
+        #print(evento)
 
         # for evento in lista_eventos:
         #

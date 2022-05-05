@@ -1,12 +1,16 @@
 
 class Tag():
 
-    def __init__(self, description, address, temperature, battery, statusAssociacao):
+    def __init__(self, description, uuid, temperature, battery, statusAssociacao):
         self.__description = description
-        self.__address = address
+        self.__uuid = uuid
         self.__temperature = temperature
         self.__battery = battery
         self.__statusAssociacao = statusAssociacao
+
+    def __init__(self, description, uuid):
+        self.__description = description
+        self.__uuid = uuid
 
     @property
     def description(self):
@@ -16,11 +20,12 @@ class Tag():
         self.__description = description
 
     @property
-    def address(self):
-        return self.__address
-    @address.setter
-    def address(self, address):
-        self.__address = address
+    def uuid(self):
+        return self.__uuid
+
+    @uuid.setter
+    def uuid(self, uuid):
+        self.__uuid = uuid
 
     @property
     def temperature(self):

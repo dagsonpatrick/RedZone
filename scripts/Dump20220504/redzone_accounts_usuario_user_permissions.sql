@@ -16,32 +16,31 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `associar_associacaocollaborator`
+-- Table structure for table `accounts_usuario_user_permissions`
 --
 
-DROP TABLE IF EXISTS `associar_associacaocollaborator`;
+DROP TABLE IF EXISTS `accounts_usuario_user_permissions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `associar_associacaocollaborator` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `collaborator_id` bigint NOT NULL,
-  `tag_id` bigint NOT NULL,
+CREATE TABLE `accounts_usuario_user_permissions` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `usuario_id` int NOT NULL,
+  `permission_id` int NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `associar_associacaoc_collaborator_id_5ed88895_fk_collabora` (`collaborator_id`),
-  KEY `associar_associacaocollaborator_tag_id_2e01ff2f_fk_tag_tag_id` (`tag_id`),
-  CONSTRAINT `associar_associacaoc_collaborator_id_5ed88895_fk_collabora` FOREIGN KEY (`collaborator_id`) REFERENCES `collaborator_collaborator` (`id`),
-  CONSTRAINT `associar_associacaocollaborator_tag_id_2e01ff2f_fk_tag_tag_id` FOREIGN KEY (`tag_id`) REFERENCES `tag_tag` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+  UNIQUE KEY `accounts_usuario_user_pe_usuario_id_permission_id_0065a2ce_uniq` (`usuario_id`,`permission_id`),
+  KEY `accounts_usuario_use_permission_id_3de42c14_fk_auth_perm` (`permission_id`),
+  CONSTRAINT `accounts_usuario_use_permission_id_3de42c14_fk_auth_perm` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`),
+  CONSTRAINT `accounts_usuario_use_usuario_id_d048ad71_fk_accounts_` FOREIGN KEY (`usuario_id`) REFERENCES `accounts_usuario` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `associar_associacaocollaborator`
+-- Dumping data for table `accounts_usuario_user_permissions`
 --
 
-LOCK TABLES `associar_associacaocollaborator` WRITE;
-/*!40000 ALTER TABLE `associar_associacaocollaborator` DISABLE KEYS */;
-INSERT INTO `associar_associacaocollaborator` VALUES (1,1,1);
-/*!40000 ALTER TABLE `associar_associacaocollaborator` ENABLE KEYS */;
+LOCK TABLES `accounts_usuario_user_permissions` WRITE;
+/*!40000 ALTER TABLE `accounts_usuario_user_permissions` DISABLE KEYS */;
+/*!40000 ALTER TABLE `accounts_usuario_user_permissions` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -53,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-02-17 15:02:11
+-- Dump completed on 2022-05-04 16:54:35

@@ -16,37 +16,27 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `api_eventoredzone`
+-- Table structure for table `auth_group`
 --
 
-DROP TABLE IF EXISTS `api_eventoredzone`;
+DROP TABLE IF EXISTS `auth_group`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `api_eventoredzone` (
+CREATE TABLE `auth_group` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `portal` varchar(15) NOT NULL,
-  `sentido` varchar(15) NOT NULL,
-  `temperature` int NOT NULL,
-  `battery` int NOT NULL,
-  `status` int NOT NULL,
-  `timestamp` datetime(6) DEFAULT NULL,
-  `tag_id` bigint NOT NULL,
-  `collaborator_id` bigint DEFAULT NULL,
+  `name` varchar(150) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `api_eventoredzone_tag_id_e93d934e_fk_tag_tag_id` (`tag_id`),
-  KEY `api_eventoredzone_collaborator_id_55dee81a_fk_collabora` (`collaborator_id`),
-  CONSTRAINT `api_eventoredzone_collaborator_id_55dee81a_fk_collabora` FOREIGN KEY (`collaborator_id`) REFERENCES `collaborator_collaborator` (`id`),
-  CONSTRAINT `api_eventoredzone_tag_id_e93d934e_fk_tag_tag_id` FOREIGN KEY (`tag_id`) REFERENCES `tag_tag` (`id`)
+  UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `api_eventoredzone`
+-- Dumping data for table `auth_group`
 --
 
-LOCK TABLES `api_eventoredzone` WRITE;
-/*!40000 ALTER TABLE `api_eventoredzone` DISABLE KEYS */;
-/*!40000 ALTER TABLE `api_eventoredzone` ENABLE KEYS */;
+LOCK TABLES `auth_group` WRITE;
+/*!40000 ALTER TABLE `auth_group` DISABLE KEYS */;
+/*!40000 ALTER TABLE `auth_group` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -58,4 +48,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-02-17 15:02:09
+-- Dump completed on 2022-05-04 16:54:35
