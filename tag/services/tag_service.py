@@ -1,15 +1,23 @@
 from ..models import Tag
 
 def cadastrar_tag_automatico(tag):
-    Tag.objects.create(description = 'TAG AUTO',
-                       uuid = tag.uuid,
-                       temperature = 22,
-                       battery = tag.battery,
-                       statusAssociacao = 0)
+    Tag.objects.create(uuid=tag.uuid,
+                       battery=tag.battery,
+                       dateUpdate=tag.date,
+                       temperature=22,
+                       description='TAG AUTO',
+                       statusAssociacao=0,
+                       status=0)
+
+def atualizar_tag(tag, battery, dateUpdate):
+    tag.battery = battery
+    tag.dateUpdate = dateUpdate
+    tag.save(force_update=True)
 
 def cadastrar_tag_form(tag):
-    Tag.objects.create(description = tag.description,
-                       uuid = tag.uuid)
+    Tag.objects.create(description=tag.description,
+                       uuid=tag.uuid,
+                       statusAssociacao=0)
 
 
 def listar_tags_gerenciar():
@@ -19,7 +27,7 @@ def listar_tags():
     return Tag.objects.filter(status = 1).order_by("id").all()
 
 def listar_tags_nao_associadas():
-    return Tag.objects.filter(statusAssociacao = 0).order_by("id").all()
+    return Tag.objects.filter(statusAssociacao=0).filter(status=1).order_by("id").all()
 
 def listar_tag_id(id):
     return Tag.objects.get(id=id)

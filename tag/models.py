@@ -15,4 +15,4 @@ class Tag(models.Model):
     dateUpdate = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
-        return self.dateCreate
+        return self.description

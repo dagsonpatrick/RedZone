@@ -19,7 +19,7 @@
           {% endif %}
           </div>
           <div class="col-sm-6">
-              <a href="{% url 'cadastrar_tag' %}" class="btn btn-success float-right"> Cadatrar <i class="nav-icon fas fa fa-tags"></i></a>
+              <a href="{% url 'cadastrar_tag' %}" class="btn btn-success float-right"> Cadastrar <i class="nav-icon fas fa fa-tags"></i></a>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -53,35 +53,49 @@
                   <tr>
                         <td>{{tag.description}}</td>
                         <td class="text-center">{{tag.uuid}}</td>
-
-                        {% if tag.temperature > 23 %}
-                          <td class="text-center">
-                            <span  class="badge badge-danger">{{tag.temperature}} C°</span>
-                          </td>
+                        {% if tag.temperature %}
+                            {% if tag.temperature > 23 %}
+                              <td class="text-center">
+                                <span  class="badge badge-danger">{{tag.temperature}} C°</span>
+                              </td>
+                            {% else %}
+                                <td class="text-center">
+                                    <span class="badge badge-info">{{tag.temperature}} C°</span>
+                                </td>
+                            {% endif %}
                         {% else %}
                             <td class="text-center">
-                                <span class="badge badge-info">{{tag.temperature}} C°</span>
-                            </td>
+                                    <span class="badge badge-info">Sem Info de Temperatura</span>
+                                </td>
                         {% endif %}
 
-                        {% if tag.battery >= 60 %}
+                      {% if tag.battery %}
+                          {% if tag.battery >= 60 %}
+                              <td>
+                                 <div class="progress">
+                                    <div class="progress-bar bg-success progress-bar-striped"  role="progressbar" aria-valuenow="{{tag.battery}}" aria-valuemin="0" aria-valuemax="100" style="width: {{tag.battery}}%">
+                                      <span class="text-center">{{tag.battery}}% </span>
+                                    </div>
+                                </div>
+                              </td>
+                            {% else %}
+                                <td>
+                                 <div class="progress">
+                                    <div class="progress-bar bg-danger progress-bar-striped"  role="progressbar" aria-valuenow="{{tag.battery}}" aria-valuemin="0" aria-valuemax="100" style="width: {{tag.battery}}%">
+                                      <span class="text-center">{{tag.battery}}% </span>
+                                    </div>
+                                </div>
+                              </td>
+                            {% endif %}
+                      {% else %}
                           <td>
-                             <div class="progress">
-                                <div class="progress-bar bg-success progress-bar-striped"  role="progressbar" aria-valuenow="{{tag.battery}}" aria-valuemin="0" aria-valuemax="100" style="width: {{tag.battery}}%">
-                                  <span class="text-center">{{tag.battery}}% </span>
+                                 <div class="progress">
+                                    <div class="progress-bar bg-danger progress-bar-striped"  role="progressbar" aria-valuenow="{{tag.battery}}" aria-valuemin="0" aria-valuemax="100" style="width: {{tag.battery}}%">
+                                      <span class="text-center">Sem Info de Bateria</span>
+                                    </div>
                                 </div>
-                            </div>
-                          </td>
-                        {% else %}
-                            <td>
-                             <div class="progress">
-                                <div class="progress-bar bg-danger progress-bar-striped"  role="progressbar" aria-valuenow="{{tag.battery}}" aria-valuemin="0" aria-valuemax="100" style="width: {{tag.battery}}%">
-                                  <span class="text-center">{{tag.battery}}% </span>
-                                </div>
-                            </div>
-                          </td>
-                        {% endif %}
-
+                              </td>
+                      {% endif %}
                         <td>
                         <span class="input-group-btn">
                           <a href="{% url 'editar_tag' tag.id %}" class="btn btn-block btn-outline-primary btn-lg">Alterar</a>

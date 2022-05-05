@@ -1,7 +1,5 @@
 {% extends 'index.html' %}
-
 {% block conteudo %}
-
  <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
@@ -10,50 +8,33 @@
             <h1>Remover Associação</h1>
           </div>
           <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Associação</a></li>
-              <li class="breadcrumb-item active">Remover</li>
-            </ol>
+
           </div>
         </div>
       </div><!-- /.container-fluid -->
     </section>
-
-
      <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
         <div class="row">
           <!-- left column -->
-          <div class="col-md-10">
+          <div class="col-md-12">
             <!-- general form elements -->
             <div class="card card-primary">
-
               <!-- form start -->
               <form role="form" method="post" >
                   {% csrf_token %}
                 <div class="card-body">
-
-                    <div class="form-group">
-                        <label for="ID">ID</label>
-                        <input type="text" class="form-control" id="ID" name="ID" value="{{associacao.id}}" readonly>
-                    </div>
-
                     <div class="form-group">
                         <label for="Tag">Tag</label>
                         <input type="text" class="form-control" id="Tag" placeholder="Tag" value="{{associacao.tag.description}}"  readonly>
-
                     </div>
-
                     <div class="form-group">
                         <label for="Colaborador">Colaborador</label>
                         <input type="text" class="form-control" id="Colaborador" value="{{associacao.collaborator.first_name}} {{associacao.collaborator.last_name}}" placeholder="Colaborador"  value="{{tag.temperature}}" readonly>
-
                     </div>
-
                 </div>
                 <!-- /.card-body -->
-
                 <div class="card-footer">
                   <button type="submit" class="btn btn-primary">Remover</button>
                     <a href="{{request.META.HTTP_REFERER}}" class="btn btn-danger float-right">Cancelar</a>
@@ -61,7 +42,6 @@
               </form>
             </div>
             <!-- /.card -->
-
           </div>
           <!--/.col (left) -->
         </div>
@@ -69,7 +49,4 @@
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
-
-
-
 {% endblock conteudo %}
