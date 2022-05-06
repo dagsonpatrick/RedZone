@@ -91,7 +91,6 @@ class EventCoreList(APIView):
     def post(self, request, format=None):
 
         evento = request.data
-
         type_event = evento.get('type')
         id_event = evento.get('id')
         code = evento.get('code')
@@ -101,13 +100,13 @@ class EventCoreList(APIView):
         date = date.replace("Z", "")
         uuid = data[:8]
         battery = data[8:]
-        #print(f'UUID: {uuid} Tamanho: {len(uuid)}')
+
+        print(f'UUID: {uuid} Tamanho: {len(uuid)}')
         print(f'BATTERY: {battery} Tamanho: {len(battery)}')
 
         tag = tag_service.buscar_tag_uuid(uuid)
 
         if tag:
-            #print(tag)
             tag_service.atualizar_tag(tag,  battery, date)
         else:
             print('TAG NAO EXISTE NO BD')
@@ -117,13 +116,10 @@ class EventCoreList(APIView):
         # 8 primeiros digitos é o UUID (MAC)
         # 8 ultimos é o nivel da bateria em mV (1000mv = 1volt)
 
-
-
-        portal = '01'
         tag = tag_service.buscar_tag_uuid(uuid)
 
-
         collaborator_ass_tag = associar_service.buscar_colaborador_ass_tag(tag)
+
         collaborator = collaborator_ass_tag.collaborator
 
         if code == 101:
@@ -136,7 +132,7 @@ class EventCoreList(APIView):
             print(f'[INFO] TAG: {tag.description} SAIDA Code:{code}')
 
 
-        evento_novo = EventosRedZone(portal=portal,
+        evento_novo = EventosRedZone(portal='01',
                                     tag=tag,
                                     collaborator=collaborator,
                                     sentido=sentido,
@@ -146,7 +142,6 @@ class EventCoreList(APIView):
                                     timestamp=tag.dateUpdate)
 
         evento_service.cadastrar_evento(evento_novo)
-
         collaborators_in_redzone = evento_service.collaborators_within_redzone()
         collaborators_out_redzone = evento_service.collaborators_outside_redzone()
         eventos_red_zone = evento_service.create_info_eventos(collaborators_in_redzone, collaborators_out_redzone)
@@ -157,4 +152,5 @@ class EventCoreList(APIView):
                    "status": 1,
                    "date": str(datetime.datetime.now())
                    }
+
         return JsonResponse(retorno)

@@ -63,3 +63,14 @@ def ativar_usuario(usuario):
 
 def pesquisar_acessos_usuarios(dtInicial, dtFinal):
     return Usuario_Acesso.objects.filter(date_login__range=[dtInicial, dtFinal])
+
+
+def add_permission_admin(id_user):
+    usuario = listar_usuario_id(id_user)
+    usuario.is_superuser=1
+    usuario.save(force_update=True)
+
+def add_permission_base(id_user):
+    usuario = listar_usuario_id(id_user)
+    usuario.is_superuser=0
+    usuario.save(force_update=True)

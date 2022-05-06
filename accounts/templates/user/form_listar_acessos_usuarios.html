@@ -1,0 +1,118 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block conteudo %}
+    <form method="post" action="{% url 'pesquisar_acessos_usuarios' %}">
+    {% csrf_token %}
+ <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb">
+          <div class="col-sm-4">
+            <h1>Histórico de Acesso ao Sistema</h1>
+          </div>
+
+            <div class="col-sm-3">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="far fa-calendar-alt"></i>
+                  </span>
+                </div>
+                    <input type="text" class="form-control float-right" id="reservation" name="reservation" value="{{dataPesquisada}}">
+            </div>
+            </div>
+
+            <div class="col-sm-5">
+                <button type="submit" class="btn btn-success float-sm-left">Pesquisar <i class="fas fa-search"></i></button>
+                <ol class="breadcrumb float-sm-right" style="visibility: {{visible}};">
+                    <div class="margin">
+                        <button type="button" class="btn btn-primary pull-right" onclick="window.print();">
+                            <i class="fa fa-print"> Imprimir</i>
+                        </button>
+
+                        <div class="btn-group">
+                            <li class="breadcrumb-item"><a href="{% url 'export_excel' %}" class="btn btn-success float-right">Exportar Excel <i class="fas fa-file-excel"></i></a></li>
+                        </div>
+                    </div>
+                </ol>
+            </div>
+
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+    </form>
+    {% if acessos %}
+   <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body">
+              <table class="table table-striped">
+                <thead>
+                   <tr>
+                      <th>Usuário</th>
+                      <th>Login</th>
+                      <th>Logout</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for acesso in acessos %}
+                 <form action="" method="post">
+                  {% csrf_token %}
+                  <tr>
+                    <td >{{acesso.usuario}}</td>
+                    <td >{{acesso.date_login}}</td>
+                      {% if acesso.date_logout %}
+                        <td >{{acesso.date_logout}}</td>
+                      {% else %}
+                        <td>Usuário não fez Logout</td>
+                      {% endif %}
+                  </tr>
+                </form>
+                {% endfor %}
+                </tbody>
+                <tfoot>
+                   <tr>
+                      <th>Usuário</th>
+                      <th>Login</th>
+                      <th>Logout</th>
+                    </tr>
+                </tfoot>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </section>
+    <!-- /.content -->
+    {% endif %}
+<!-- jQuery -->
+<script src="{% static 'app/plugins/jquery/jquery.min.js' %}"></script>
+
+{% if messages %}
+          {% for message in messages %}
+             {% if 'info' == message.tags %}
+                <script>
+                 $(document).ready( function mostrarModal() {
+                  Swal.fire({
+                    position: 'top-center',
+                    type: 'info',
+                    title: "{{message}}",
+                    text: 'Favor pesquisar outro intervalo de data',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    footer:'www.a4solutions.com.br'
+                  });
+                });
+                </script>
+             {% endif %}
+          {% endfor %}
+{% endif %}
+
+{% endblock conteudo %}
+

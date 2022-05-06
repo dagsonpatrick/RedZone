@@ -1,0 +1,203 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block conteudo %}
+ <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb">
+          <div class="col-sm-6">
+            <h1>Gerenciar usuários cadastrados no sistema</h1>
+          </div>
+             <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item">
+                        <a href="{% url 'cadastrar_usuario' %}" class="btn btn-success float-right"><i class="fas fa-user-plus"></i> Cadastrar Usuário</a>
+                    </li>
+                </ol>
+            </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+   <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <div class="col-12">
+
+          <div class="card">
+
+            <div class="card-body">
+              <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                   <tr>
+                      <th>Usuário</th>
+                      <th class="text-center">Email</th>
+                      <th class="text-center">Último Login</th>
+                      <th class="text-center">Permissão</th>
+                      <th class="text-center">Status</th>
+                      <th class="text-center"><i class="far fa-trash-alt"></i> </th>
+                      <th class="text-center"><i class="fas fa-sync-alt"></i></i></th>
+                      <th class="text-center"><i class="fas fa-user"></i></th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for usuario in usuarios %}
+                 <form action="" method="post">
+                  {% csrf_token %}
+                  <tr>
+                    <td >{{usuario.first_name}} {{usuario.last_name}}</td>
+                    <td >{{usuario.email}}</td>
+                    <td >{{usuario.last_login}}</td>
+
+                    {% if usuario.is_superuser == 1%}
+                         <td class="text-center" >Administrador</td>
+                    {% else %}
+                         <td class="text-center">Base</td>
+                    {% endif %}
+
+                    <td>
+                        {% if usuario.is_active == 1%}
+                        <h3 class="text-center"><span class="badge badge-success text-center"><i class="far fa-user"></i> Ativo</span></h3>
+                        {% else %}
+                          <h3 class="text-center"><span class="badge badge-danger text-center"><i class="far fa-user"></i> Desativado</span></h3>
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        <span class="input-group-btn">
+                            <a href="#" class="btn btn-block btn-outline-danger" data-toggle="modal" data-target="#modal-lg{{usuario.id}}"><i class="fa fa-remove"></i> REMOVER  </a>
+                        </span>
+                    </td>
+                    <td>
+                        {% if usuario.is_active == 1%}
+                            <span class="input-group-btn">
+                              <a href="{% url 'desativar_usuario' usuario.id %}" class="btn btn-block btn-outline-primary">DESATIVAR</a>
+                            </span>
+                        {% else %}
+                            <span class="input-group-btn">
+                              <a href="{% url 'ativar_usuario' usuario.id %}" class="btn btn-block btn-outline-success">ATIVAR</a>
+                            </span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if usuario.is_superuser == 1%}
+                            <span class="input-group-btn">
+                              <a href="{% url 'add_permission_base' usuario.id %}" class="btn btn-block btn-outline-success">Base</a>
+                            </span>
+                        {% else %}
+                            <span class="input-group-btn">
+                              <a href="{% url 'add_permission_admin' usuario.id %}" class="btn btn-block btn-outline-success">Admin</a>
+                            </span>
+                        {% endif %}
+                    </td>
+
+                  </tr>
+                </form>
+                {% endfor %}
+
+                </tbody>
+                <tfoot>
+                   <tr>
+                      <th>Usuário</th>
+                      <th class="text-center">Email</th>
+                      <th class="text-center">Último Login</th>
+                      <th class="text-center">Permissão</th>
+                      <th class="text-center">Status</th>
+                      <th class="text-center"><i class="far fa-trash-alt"></i> </th>
+                      <th class="text-center"><i class="fas fa-sync-alt"></i></th>
+                      <th class="text-center"><i class="fas fa-user"></i></th>
+                    </tr>
+                </tfoot>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </section>
+    <!-- /.content -->
+{% for usuario in usuarios %}
+ <form action="{% url 'remover_usuario' usuario.id %}" method="post">
+<div class="modal fade" id="modal-lg{{usuario.id}}">
+    {% csrf_token %}
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Deseja remover o usuário</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+
+                 <div class="row">
+                    <div class="col-md-6">
+
+                        <div class="form-group">
+                            <label for="nome">Nome</label>
+                            <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome" value="{{usuario.first_name}}" readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="text" class="form-control" id="email" name="email" placeholder="Email" value="{{usuario.email}}" readonly>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="sobrenome">Sobrenome</label>
+                            <input type="text" class="form-control" id="sobrenome" name="sobrenome" placeholder="Sobrenome" value="{{usuario.last_name}}" readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="last_login">Último Login</label>
+                            <input type="text" class="form-control" id="last_login" name="last_login" placeholder="Último Login" value="{{usuario.last_login}}" readonly>
+                        </div>
+
+                    </div>
+                 </div>
+
+                    <div class="row">
+
+                        <div class="col-md-6">
+
+                            <div class="form-group">
+                                <label>Permissão</label>
+                                {% if usuario.is_superuser == 1 %}
+                                    <h3><span class="badge badge-info"><i class="fas fa-user-shield"></i> Administrador</span></h3>
+                                {% else %}
+                                      <h3><span class="badge badge-info"><i class="fas fa-user-shield"></i> Básica</span></h3>
+                                {% endif %}
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Status</label>
+                                {% if usuario.is_active == 1 %}
+                                    <h3><span class="badge badge-success"><i class="far fa-user"></i> Ativo</span></h3>
+                                {% else %}
+                                      <h3><span class="badge badge-danger"><i class="far fa-user"></i> Desativado</span></h3>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+            </div>
+            <div class="modal-footer justify-content-between">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+              <button type="submit" class="btn btn-danger"> Remover</button>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+ </form>
+{% endfor %}
+{% endblock conteudo %}

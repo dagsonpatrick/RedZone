@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Histórico de acesso de usuários</title>
+</head>
+<body >
+     <!-- Main content -->
+
+    <section class="content">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body">
+              <h1>Histórico de Acesso ao Sistema</h1>
+              <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                   <tr>
+                      <th>Usuário</th>
+                      <th>Login</th>
+                      <th>Logout</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for acesso in acessos %}
+
+                  <tr>
+                    <td >{{acesso.usuario}}</td>
+                    <td >{{acesso.date_login }}</td>
+                      {% if acesso.date_logout %}
+                        <td >{{acesso.date_logout }}</td>
+                      {% else %}
+                        <td>Usuário não fez Logout</td>
+                      {% endif %}
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </section>
+    <!-- /.content -->
+
+  <footer class="main-footer" style="background-image:url('/media/avatar/template_a4.png'); background-position: center right;background-repeat: no-repeat;">
+    <strong>Copyright &copy;  {% now "Y" as current_year %} {{current_year}} <a href="https://www.a4solutions.com.br/">A4 Solutions</a>.</strong>
+    All rights reserved.
+    <div class="float-right d-none d-sm-inline-block">
+      <b>Version</b> 1.0.0
+    </div>
+  </footer>
+
+</body>
+</html>
