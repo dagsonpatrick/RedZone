@@ -86,3 +86,6 @@ def remove_evento_redzone(collaborator):
     event_collaborator.delete()
 
 
+
+
+

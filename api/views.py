@@ -147,6 +147,8 @@ class EventCoreList(APIView):
         eventos_red_zone = evento_service.create_info_eventos(collaborators_in_redzone, collaborators_out_redzone)
         asyncio.new_event_loop().run_until_complete(sendWebsockets(eventos_red_zone))
 
+        evento_service.cadastrar_evento_core(type_event, id_event, code, evento.get('data'), date)
+
         retorno = {
                     "type": 3,
                    "status": 1,

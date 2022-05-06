@@ -1,5 +1,5 @@
 
-from ..models import EventoRedZone
+from ..models import EventoRedZone, EventoCore
 
 def cadastrar_evento(evento):
     try:
@@ -85,4 +85,9 @@ def remove_evento_redzone(collaborator):
     event_collaborator = EventoRedZone.objects.get(collaborator=collaborator)
     event_collaborator.delete()
 
-
+def cadastrar_evento_core(type_event, id_event, code, data, date):
+    EventoCore.objects.create(type_event=type_event,
+                              id_event=id_event,
+                              code=code,
+                              data=data,
+                              date=date)
