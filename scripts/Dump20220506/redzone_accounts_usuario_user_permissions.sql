@@ -16,30 +16,31 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `api_eventocore`
+-- Table structure for table `accounts_usuario_user_permissions`
 --
 
-DROP TABLE IF EXISTS `api_eventocore`;
+DROP TABLE IF EXISTS `accounts_usuario_user_permissions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `api_eventocore` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `type_event` varchar(6) NOT NULL,
-  `id_event` varchar(10) NOT NULL,
-  `code` varchar(6) NOT NULL,
-  `data` varchar(17) NOT NULL,
-  `date` datetime(6) NOT NULL,
-  PRIMARY KEY (`id`)
+CREATE TABLE `accounts_usuario_user_permissions` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `usuario_id` int NOT NULL,
+  `permission_id` int NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `accounts_usuario_user_pe_usuario_id_permission_id_0065a2ce_uniq` (`usuario_id`,`permission_id`),
+  KEY `accounts_usuario_use_permission_id_3de42c14_fk_auth_perm` (`permission_id`),
+  CONSTRAINT `accounts_usuario_use_permission_id_3de42c14_fk_auth_perm` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`),
+  CONSTRAINT `accounts_usuario_use_usuario_id_d048ad71_fk_accounts_` FOREIGN KEY (`usuario_id`) REFERENCES `accounts_usuario` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `api_eventocore`
+-- Dumping data for table `accounts_usuario_user_permissions`
 --
 
-LOCK TABLES `api_eventocore` WRITE;
-/*!40000 ALTER TABLE `api_eventocore` DISABLE KEYS */;
-/*!40000 ALTER TABLE `api_eventocore` ENABLE KEYS */;
+LOCK TABLES `accounts_usuario_user_permissions` WRITE;
+/*!40000 ALTER TABLE `accounts_usuario_user_permissions` DISABLE KEYS */;
+/*!40000 ALTER TABLE `accounts_usuario_user_permissions` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -51,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-04 16:54:33
+-- Dump completed on 2022-05-06 11:22:34

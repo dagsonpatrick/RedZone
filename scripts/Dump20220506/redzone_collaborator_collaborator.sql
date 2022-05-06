@@ -16,38 +16,31 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `api_eventoredzone`
+-- Table structure for table `collaborator_collaborator`
 --
 
-DROP TABLE IF EXISTS `api_eventoredzone`;
+DROP TABLE IF EXISTS `collaborator_collaborator`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `api_eventoredzone` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `portal` varchar(15) NOT NULL,
-  `sentido` varchar(15) NOT NULL,
-  `temperature` int NOT NULL,
-  `battery` int NOT NULL,
-  `status` int NOT NULL,
-  `timestamp` datetime(6) DEFAULT NULL,
-  `tag_id` bigint NOT NULL,
-  `collaborator_id` bigint DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `api_eventoredzone_tag_id_e93d934e_fk_tag_tag_id` (`tag_id`),
-  KEY `api_eventoredzone_collaborator_id_55dee81a_fk_collabora` (`collaborator_id`),
-  CONSTRAINT `api_eventoredzone_collaborator_id_55dee81a_fk_collabora` FOREIGN KEY (`collaborator_id`) REFERENCES `collaborator_collaborator` (`id`),
-  CONSTRAINT `api_eventoredzone_tag_id_e93d934e_fk_tag_tag_id` FOREIGN KEY (`tag_id`) REFERENCES `tag_tag` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+CREATE TABLE `collaborator_collaborator` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `first_name` varchar(15) NOT NULL,
+  `last_name` varchar(15) NOT NULL,
+  `email` varchar(70) NOT NULL,
+  `foto` varchar(100) DEFAULT NULL,
+  `statusAssociacao` int DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `api_eventoredzone`
+-- Dumping data for table `collaborator_collaborator`
 --
 
-LOCK TABLES `api_eventoredzone` WRITE;
-/*!40000 ALTER TABLE `api_eventoredzone` DISABLE KEYS */;
-INSERT INTO `api_eventoredzone` VALUES (2,'01','Entrou',23,59,1,'2020-04-30 20:01:18.539000',2,2),(3,'01','Entrou',20,59,1,'2020-04-30 20:01:18.539000',1,1),(4,'01','Entrou',24,80,1,'2020-04-30 20:01:18.539000',3,3);
-/*!40000 ALTER TABLE `api_eventoredzone` ENABLE KEYS */;
+LOCK TABLES `collaborator_collaborator` WRITE;
+/*!40000 ALTER TABLE `collaborator_collaborator` DISABLE KEYS */;
+INSERT INTO `collaborator_collaborator` VALUES (1,'Dagson','Souza','dagson.souza@a4solutions.com.br','fotoPerfilColaborador/49bf1c03-ea48-468d-bfed-04028774cf16.png',1),(2,'Dhymas','Sventkauskas','dhymas@a4solutions.com.br','fotoPerfilColaborador/afa08236-7183-4d81-82b9-a73dfcca08a1.jpg',0),(3,'André','Anjos','andre.anjos@a4solutions.com.br','fotoPerfilColaborador/063a3d59-7433-4223-ab14-83d379b9f3d2.jpg',0);
+/*!40000 ALTER TABLE `collaborator_collaborator` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -59,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-04 16:54:37
+-- Dump completed on 2022-05-06 11:22:41

@@ -16,37 +16,31 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `django_admin_log`
+-- Table structure for table `accounts_usuario_groups`
 --
 
-DROP TABLE IF EXISTS `django_admin_log`;
+DROP TABLE IF EXISTS `accounts_usuario_groups`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `django_admin_log` (
+CREATE TABLE `accounts_usuario_groups` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `action_time` datetime(6) NOT NULL,
-  `object_id` longtext,
-  `object_repr` varchar(200) NOT NULL,
-  `action_flag` smallint unsigned NOT NULL,
-  `change_message` longtext NOT NULL,
-  `content_type_id` int DEFAULT NULL,
-  `user_id` int NOT NULL,
+  `usuario_id` int NOT NULL,
+  `group_id` int NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `django_admin_log_content_type_id_c4bce8eb_fk_django_co` (`content_type_id`),
-  KEY `django_admin_log_user_id_c564eba6_fk_accounts_usuario_id` (`user_id`),
-  CONSTRAINT `django_admin_log_content_type_id_c4bce8eb_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`),
-  CONSTRAINT `django_admin_log_user_id_c564eba6_fk_accounts_usuario_id` FOREIGN KEY (`user_id`) REFERENCES `accounts_usuario` (`id`),
-  CONSTRAINT `django_admin_log_chk_1` CHECK ((`action_flag` >= 0))
+  UNIQUE KEY `accounts_usuario_groups_usuario_id_group_id_90f476d3_uniq` (`usuario_id`,`group_id`),
+  KEY `accounts_usuario_groups_group_id_81d91a41_fk_auth_group_id` (`group_id`),
+  CONSTRAINT `accounts_usuario_gro_usuario_id_8eb16911_fk_accounts_` FOREIGN KEY (`usuario_id`) REFERENCES `accounts_usuario` (`id`),
+  CONSTRAINT `accounts_usuario_groups_group_id_81d91a41_fk_auth_group_id` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `django_admin_log`
+-- Dumping data for table `accounts_usuario_groups`
 --
 
-LOCK TABLES `django_admin_log` WRITE;
-/*!40000 ALTER TABLE `django_admin_log` DISABLE KEYS */;
-/*!40000 ALTER TABLE `django_admin_log` ENABLE KEYS */;
+LOCK TABLES `accounts_usuario_groups` WRITE;
+/*!40000 ALTER TABLE `accounts_usuario_groups` DISABLE KEYS */;
+/*!40000 ALTER TABLE `accounts_usuario_groups` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -58,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-04 16:54:33
+-- Dump completed on 2022-05-06 11:22:35

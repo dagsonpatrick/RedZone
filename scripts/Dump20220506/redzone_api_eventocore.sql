@@ -16,31 +16,31 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `tag_tag`
+-- Table structure for table `api_eventocore`
 --
 
-DROP TABLE IF EXISTS `tag_tag`;
+DROP TABLE IF EXISTS `api_eventocore`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `tag_tag` (
+CREATE TABLE `api_eventocore` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `description` varchar(50) NOT NULL,
-  `address` varchar(15) NOT NULL,
-  `temperature` int NOT NULL,
-  `battery` int NOT NULL,
-  `statusAssociacao` int DEFAULT NULL,
+  `type_event` varchar(6) NOT NULL,
+  `id_event` varchar(10) NOT NULL,
+  `code` varchar(6) NOT NULL,
+  `data` varchar(17) NOT NULL,
+  `date` datetime(6) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `tag_tag`
+-- Dumping data for table `api_eventocore`
 --
 
-LOCK TABLES `tag_tag` WRITE;
-/*!40000 ALTER TABLE `tag_tag` DISABLE KEYS */;
-INSERT INTO `tag_tag` VALUES (1,'TAG-02','MAC-02',20,59,1),(2,'TAG-01','MAC-01',23,60,1),(3,'TAG-03','MAC-03',24,80,1);
-/*!40000 ALTER TABLE `tag_tag` ENABLE KEYS */;
+LOCK TABLES `api_eventocore` WRITE;
+/*!40000 ALTER TABLE `api_eventocore` DISABLE KEYS */;
+INSERT INTO `api_eventocore` VALUES (1,'3','41fcf78f','101','053B217800000015','2022-05-05 17:00:13.000000');
+/*!40000 ALTER TABLE `api_eventocore` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -52,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-04 16:54:42
+-- Dump completed on 2022-05-06 11:22:32

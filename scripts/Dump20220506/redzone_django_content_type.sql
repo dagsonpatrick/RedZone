@@ -28,7 +28,7 @@ CREATE TABLE `django_content_type` (
   `model` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `django_content_type_app_label_model_76bd3d3b_uniq` (`app_label`,`model`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,7 +37,7 @@ CREATE TABLE `django_content_type` (
 
 LOCK TABLES `django_content_type` WRITE;
 /*!40000 ALTER TABLE `django_content_type` DISABLE KEYS */;
-INSERT INTO `django_content_type` VALUES (6,'accounts','usuario'),(11,'accounts','usuario_acesso'),(1,'admin','logentry'),(12,'api','eventocore'),(10,'api','eventoredzone'),(9,'associar','associacaocollaborator'),(3,'auth','group'),(2,'auth','permission'),(7,'collaborator','collaborator'),(4,'contenttypes','contenttype'),(5,'sessions','session'),(8,'tag','tag');
+INSERT INTO `django_content_type` VALUES (6,'accounts','usuario'),(11,'accounts','usuario_acesso'),(1,'admin','logentry'),(12,'api','eventocore'),(10,'api','eventoredzone'),(9,'associar','associacaocollaborator'),(3,'auth','group'),(2,'auth','permission'),(7,'collaborator','collaborator'),(4,'contenttypes','contenttype'),(5,'sessions','session'),(8,'tag','tag'),(13,'tag','tagcore');
 /*!40000 ALTER TABLE `django_content_type` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -50,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-04 16:54:39
+-- Dump completed on 2022-05-06 11:22:38

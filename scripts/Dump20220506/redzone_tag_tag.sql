@@ -16,31 +16,34 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `collaborator_collaborator`
+-- Table structure for table `tag_tag`
 --
 
-DROP TABLE IF EXISTS `collaborator_collaborator`;
+DROP TABLE IF EXISTS `tag_tag`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `collaborator_collaborator` (
+CREATE TABLE `tag_tag` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `first_name` varchar(15) NOT NULL,
-  `last_name` varchar(15) NOT NULL,
-  `email` varchar(70) NOT NULL,
-  `foto` varchar(100) DEFAULT NULL,
+  `description` varchar(50) NOT NULL,
+  `uuid` varchar(15) NOT NULL,
+  `temperature` int DEFAULT NULL,
+  `battery` int DEFAULT NULL,
   `statusAssociacao` int DEFAULT NULL,
+  `dateCreate` datetime(6) NOT NULL,
+  `dateUpdate` datetime(6) DEFAULT NULL,
+  `status` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `collaborator_collaborator`
+-- Dumping data for table `tag_tag`
 --
 
-LOCK TABLES `collaborator_collaborator` WRITE;
-/*!40000 ALTER TABLE `collaborator_collaborator` DISABLE KEYS */;
-INSERT INTO `collaborator_collaborator` VALUES (1,'Dagson','Souza','dagson.souza@a4solutions.com.br','fotoPerfilColaborador/49bf1c03-ea48-468d-bfed-04028774cf16.png',1),(2,'Dhymas','Sventkauskas','dhymas@a4solutions.com.br','fotoPerfilColaborador/afa08236-7183-4d81-82b9-a73dfcca08a1.jpg',1),(3,'André','Anjos','andre.anjos@a4solutions.com.br','fotoPerfilColaborador/063a3d59-7433-4223-ab14-83d379b9f3d2.jpg',1);
-/*!40000 ALTER TABLE `collaborator_collaborator` ENABLE KEYS */;
+LOCK TABLES `tag_tag` WRITE;
+/*!40000 ALTER TABLE `tag_tag` DISABLE KEYS */;
+INSERT INTO `tag_tag` VALUES (9,'TAG-01','1233',NULL,NULL,0,'2022-05-05 13:22:36.573777',NULL,0),(12,'TAG-02','1234578',NULL,NULL,0,'2022-05-05 15:01:49.637926',NULL,1),(13,'TAG-03','1234578',NULL,NULL,0,'2022-05-05 15:01:55.378419',NULL,0),(14,'TAG-04','1234578',NULL,NULL,0,'2022-05-05 15:02:03.422446',NULL,1),(17,'TAG AUTO','053B2178',22,15,1,'2022-05-05 16:40:46.399677','2022-05-05 17:00:13.000000',1);
+/*!40000 ALTER TABLE `tag_tag` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -52,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-04 16:54:41
+-- Dump completed on 2022-05-06 11:22:45

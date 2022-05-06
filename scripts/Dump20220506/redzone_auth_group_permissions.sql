@@ -16,31 +16,31 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `accounts_usuario_user_permissions`
+-- Table structure for table `auth_group_permissions`
 --
 
-DROP TABLE IF EXISTS `accounts_usuario_user_permissions`;
+DROP TABLE IF EXISTS `auth_group_permissions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `accounts_usuario_user_permissions` (
+CREATE TABLE `auth_group_permissions` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `usuario_id` int NOT NULL,
+  `group_id` int NOT NULL,
   `permission_id` int NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `accounts_usuario_user_pe_usuario_id_permission_id_0065a2ce_uniq` (`usuario_id`,`permission_id`),
-  KEY `accounts_usuario_use_permission_id_3de42c14_fk_auth_perm` (`permission_id`),
-  CONSTRAINT `accounts_usuario_use_permission_id_3de42c14_fk_auth_perm` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`),
-  CONSTRAINT `accounts_usuario_use_usuario_id_d048ad71_fk_accounts_` FOREIGN KEY (`usuario_id`) REFERENCES `accounts_usuario` (`id`)
+  UNIQUE KEY `auth_group_permissions_group_id_permission_id_0cd325b0_uniq` (`group_id`,`permission_id`),
+  KEY `auth_group_permissio_permission_id_84c5c92e_fk_auth_perm` (`permission_id`),
+  CONSTRAINT `auth_group_permissio_permission_id_84c5c92e_fk_auth_perm` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`),
+  CONSTRAINT `auth_group_permissions_group_id_b120cbf9_fk_auth_group_id` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `accounts_usuario_user_permissions`
+-- Dumping data for table `auth_group_permissions`
 --
 
-LOCK TABLES `accounts_usuario_user_permissions` WRITE;
-/*!40000 ALTER TABLE `accounts_usuario_user_permissions` DISABLE KEYS */;
-/*!40000 ALTER TABLE `accounts_usuario_user_permissions` ENABLE KEYS */;
+LOCK TABLES `auth_group_permissions` WRITE;
+/*!40000 ALTER TABLE `auth_group_permissions` DISABLE KEYS */;
+/*!40000 ALTER TABLE `auth_group_permissions` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -52,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-04 16:54:35
+-- Dump completed on 2022-05-06 11:22:38
