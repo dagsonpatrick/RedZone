@@ -27,6 +27,7 @@ urlpatterns = [
     path('', include('associar.urls')),
     path('', include('monitoring.urls')),
     path('api/', include('api.urls')),
+    path('', include('report.urls'))
 
 
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

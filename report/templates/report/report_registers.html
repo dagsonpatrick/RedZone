@@ -1,0 +1,357 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block conteudo %}
+
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <form method="post" action="{% url 'pesquisar_eventos_deteccao' %}">
+        {% csrf_token %}
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-sm-2">
+                <h3>Analítico</h3>
+              </div>
+                <div class="col-sm-3">
+                    <select id="analitico" name="analitico" class="form-control select2 select2-purple" data-dropdown-css-class="select2-purple" style="width: 100%;" tabindex="7" required>
+                        {% for anl in analiticos %}
+                        <option value="{{anl.id}}"> {{anl.description}} </option>
+                        {% endfor %}
+                    </select>
+                </div>
+              <input  type="hidden" name="temp" id="tempAnalitico" value="{{analitico}}"/>
+              <div class="col-sm-3">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="far fa-calendar-alt"></i>
+                      </span>
+                    </div>
+                    <input type="text" class="form-control float-right" id="reservation" name="reservation" value="{{dataPesquisada}}">
+                </div>
+              </div>
+             <div class="col-sm-4">
+                <button type="submit" class="btn btn-success float-sm-left">Pesquisar <i class="fas fa-search"></i></button>
+                <ol class="breadcrumb float-sm-right" style="visibility: {{visible}};">
+                    <div class="margin">
+                        <button type="button" class="btn btn-primary pull-right" onclick="window.print();">
+                            <i class="fa fa-print"> Imprimir</i>
+                        </button>
+
+                        <div class="btn-group">
+                            <li class="breadcrumb-item"><a href="{% url 'export_excel_deteccao' %}" class="btn btn-success float-right">Exportar Excel <i class="fas fa-file-excel"></i></a></li>
+                        </div>
+                    </div>
+                </ol>
+            </div>
+            </div>
+          </div><!-- /.container-fluid -->
+        </form>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+         <div class="container-fluid">
+            <div class="row">
+            <div class="col-lg-12">
+                    <div class="card">
+                      <div class="card-header border-0">
+                        <div class="d-flex justify-content-between">
+                          <h3 class="card-title">Comparativo Anual de Detecção de Fumaça </h3>
+                        </div>
+                      </div>
+                      <div class="card-body">
+                        <div class="d-flex">
+                          <p class="d-flex flex-column">
+                            <span class="text-bold text-lg">Eventos de Detecção de Fumaça</span>
+                          </p>
+                          <p class="ml-auto d-flex flex-column text-right">
+
+                          </p>
+                        </div>
+                        <!-- /.d-flex -->
+
+                        <div class="position-relative mb-4">
+                          <canvas id="sales-chart" height="200"></canvas>
+                        </div>
+
+                        <div class="d-flex flex-row justify-content-end">
+                          <span class="mr-2">
+                            <i class="fas fa-square text-primary"></i> {{thisYear}}
+                          </span>
+
+                          <span>
+                            <i class="fas fa-square text-gray"></i> {{lastYear}}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+            </div>
+          </div>
+         </div>
+    </section>
+    {% if registros %}
+    <!-- Main content -->
+    <section class="content">
+     <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body">
+              <table class="table table-striped">
+                <thead>
+                   <tr>
+                      <th>Local Emissão</th>
+                      <th>Data/Hora Inicio</th>
+                      <th>Data/Hora Fim</th>
+                      <th class="text-center">Duração</th>
+                      <th class="text-center">Class. Duração</th>
+                      <th class="text-center">Fotos</th>
+                      <th class="text-center">Videos</th>
+                   </tr>
+                </thead>
+                <tbody>
+                      {% for r in registros %}
+                          <tr>
+                                <td>{{r.description}}</td>
+                                <td>{{r.timestampInicial | date:'d/m/Y H:i:s'}}</td>
+                                <td>{{r.timestampFinal | date:'d/m/Y H:i:s'}}</td>
+                                <td class="text-center">{{r.duration | date:'H:i:s'}}</td>
+                                <td class="text-center">{{r.class_duration}}</td>
+                                <td class="text-center">
+                                     <a href="#" class="small-box-footer" data-toggle="modal" data-target="#modal-foto{{r.id}}">
+                                        Foto <i class="fas fa-image"></i>
+                                     </a>
+                                </td>
+                                <td class="text-center">
+                                     <a href="#" class="small-box-footer" data-toggle="modal" data-target="#modal-video{{r.id}}">
+                                        Video <i class="fas fa-play"></i>
+                                     </a>
+                                </td>
+                          </tr>
+                     {% endfor %}
+                </tbody>
+                <tfoot>
+                   <tr>
+                       <th>Local Emissão</th>
+                       <th>Data/Hora Inicio</th>
+                       <th>Data/Hora Fim</th>
+                       <th class="text-center">Duração</th>
+                       <th class="text-center">Class. Duração</th>
+                       <th class="text-center">Fotos</th>
+                       <th class="text-center">Videos</th>
+                    </tr>
+                </tfoot>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+     </div>
+    </section>
+    {% endif %}
+    <input type="hidden" id="dataThisYear" value="{{dataThisYear}}">
+    <input type="hidden" id="datalastYear" value="{{datalastYear}}">
+    <input type="hidden" id="thisYear" value="{{thisYear}}">
+    <input type="hidden" id="lastYear" value="{{lastYear}}">
+
+
+{% for r in registros %}
+<div class="modal fade" id="modal-foto{{r.id}}">
+        <div class="modal-dialog modal-xl">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">{{r.description}}</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <img class="embed-responsive-item" src="/FOTOS_DETECCAO_FUMACA/{{r.path_photo}}" alt="Falha no Carregamento da FOTO"/>
+                    </div>
+                </div>
+            <div class="modal-footer justify-content-between">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+              <a href="/FOTOS_DETECCAO_FUMACA/{{r.path_photo}}" class="btn btn-sm btn-primary" download>
+                 <i class="fas fa-download"></i> Download
+              </a>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+      <!-- /.modal -->
+</div>
+
+<div class="modal fade" id="modal-video{{r.id}}">
+        <div class="modal-dialog modal-xl">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">{{r.description}}</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <img class="embed-responsive-item" src="{{ r.api_video }}" alt="Falha ao carregar video"/>
+                    </div>
+                </div>
+            <div class="modal-footer justify-content-between">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+      <!-- /.modal -->
+</div>
+{% endfor %}
+
+
+<!-- jQuery -->
+<script src="{% static 'app/plugins/jquery/jquery.min.js' %}"></script>
+<!-- Bootstrap -->
+<script src="{% static 'app/plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<!-- AdminLTE -->
+<script src="{% static 'app/dist/js/adminlte.js' %}"></script>
+<script src="{% static 'app/plugins/chart.js/Chart.min.js' %}"></script>
+
+{% if messages %}
+          {% for message in messages %}
+             {% if 'info' == message.tags %}
+                <script>
+                 $(document).ready( function mostrarModal() {
+                  Swal.fire({
+                    position: 'top-center',
+                    type: 'info',
+                    title: "{{message}}",
+                    text: 'Favor pesquisar outro intervalo de data',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    footer:'www.a4solutions.com.br'
+                  });
+                });
+                </script>
+             {% endif %}
+          {% endfor %}
+{% endif %}
+
+<!-- page script -->
+<script>
+
+    var dataThisYear = jQuery.parseJSON(document.getElementById("dataThisYear").value);
+    var datalastYear = jQuery.parseJSON(document.getElementById("datalastYear").value);
+
+    var thisYear = document.getElementById("thisYear").value
+    var lastYear = document.getElementById("lastYear").value
+
+$(document).ready(function(){
+
+  $(function () {
+     var ticksStyle = {
+    fontColor: '#495057',
+    fontStyle: 'bold'
+  }
+
+  var mode      = 'index'
+  var intersect = true
+    //[1, 2 , 3 , 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    //[700, 1700, 2700, 2000, 1800, 1500, 2000, 1000, 250, 500, 1000, 2000]
+  var $salesChart = $('#sales-chart')
+  var salesChart  = new Chart($salesChart, {
+    type   : 'bar',
+    data   : {
+      labels  : ['JAN','FEV','MAR','ABR', 'MAI', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'],
+      datasets: [
+        {
+          backgroundColor: '#007bff',
+          borderColor    : '#007bff',
+          data           : dataThisYear,
+          label: thisYear
+
+        },
+        {
+          backgroundColor: '#ced4da',
+          borderColor    : '#ced4da',
+          data           : datalastYear,
+          label: lastYear
+        }
+      ]
+    },
+    options: {
+      maintainAspectRatio: false,
+      tooltips           : {
+        mode     : mode,
+        intersect: intersect
+      },
+      hover              : {
+        mode     : mode,
+        intersect: intersect
+      },
+      legend             : {
+        display: true
+
+      },
+      scales             : {
+        yAxes: [{
+          // display: false,
+          gridLines: {
+            display      : true,
+            lineWidth    : '4px',
+            color        : 'rgba(0, 0, 0, .2)',
+            zeroLineColor: 'transparent'
+          },
+          ticks    : $.extend({
+            beginAtZero: true,
+
+            // Include a dollar sign in the ticks
+            callback: function (value, index, values) {
+              if (value >= 1000) {
+                value /= 1000
+                value += 'k'
+              }
+              return '' + value
+            }
+          }, ticksStyle)
+        }],
+        xAxes: [{
+          display  : true,
+          gridLines: {
+            display: false
+          },
+          ticks    : ticksStyle
+        }]
+      }
+    }
+  });
+  });
+
+  });
+</script>
+
+<script language="javascript">
+
+    $(function () {
+
+        //Selecionar analitico
+        var valueIdAnalitico = document.getElementById('tempAnalitico').value;
+        var selectAnalitico = document.getElementById('analitico');
+        for (i = 0; i < selectAnalitico.length; i++){
+            if(selectAnalitico.options[i].value == valueIdAnalitico){
+                selectAnalitico.options[i].selected = true ;
+            }
+        }
+});
+
+</script>
+
+{% endblock conteudo %}

@@ -1,13 +1,15 @@
 from ..models import Tag
 
 def cadastrar_tag_automatico(tag):
-    Tag.objects.create(uuid=tag.uuid,
-                       battery=tag.battery,
-                       dateUpdate=tag.date,
-                       temperature=22,
-                       description='TAG AUTO',
-                       statusAssociacao=0,
-                       status=0)
+    tag = Tag.objects.create(uuid=tag.uuid,
+                             battery=tag.battery,
+                             dateUpdate=tag.date,
+                             temperature=22,
+                             description='TAG AUTO',
+                             statusAssociacao=0,
+                             status=0)
+    tag.description = 'TAG AUTO ' + tag.id
+    tag.save(force_update=True)
 
 def atualizar_tag(tag, battery, dateUpdate):
     tag.battery = battery

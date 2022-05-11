@@ -1,0 +1,150 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block conteudo %}
+
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <form method="post" action="{% url 'pesquisar_timeline' %}">
+        {% csrf_token %}
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-sm-4">
+                <h3>Timeline de Colaborador</h3>
+              </div>
+                <div class="col-sm-2">
+                    <select id="collaborator" name="collaborator" class="form-control select2 select2-purple" data-dropdown-css-class="select2-purple" style="width: 100%;" tabindex="7" required>
+                        {% for c in collaborators %}
+                        <option value="{{c.id}}"> {{c.first_name}} {{c.last_name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+              <div class="col-sm-3">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="far fa-calendar-alt"></i>
+                      </span>
+                    </div>
+                    <input type="text" class="form-control float-right" id="reservation" name="reservation" value="{{dataPesquisada}}">
+                </div>
+              </div>
+             <div class="col-sm-3">
+                <button type="submit" class="btn btn-success float-sm-left">Pesquisar <i class="fas fa-search"></i></button>
+                <ol class="breadcrumb float-sm-right" style="visibility: {{visible}};">
+                    <div class="margin">
+                        <button type="button" class="btn btn-primary pull-right" onclick="window.print();">
+                            <i class="fa fa-print"> Imprimir</i>
+                        </button>
+
+                        <div class="btn-group">
+
+                        </div>
+                    </div>
+                </ol>
+            </div>
+            </div>
+          </div><!-- /.container-fluid -->
+        </form>
+    </section>
+
+    {% if registros %}
+    <section class="content">
+      <div class="row">
+
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header p-2">
+                    <ul class="nav nav-pills">
+                        <li class="nav-item"><a class="nav-link active" href="#timeline" data-toggle="tab">Histórico</a></li>
+                    </ul>
+                </div>
+                <div class="card-body">
+                    <div class="tab-content">
+                        <div class="active tab-pane" id="timeline">
+                            <ul class="timeline timeline-inverse">
+                                <div class="time-label">
+                                    <span class="bg-danger">
+                                      {% now "SHORT_DATE_FORMAT" %}
+                                    </span>
+                                </div>
+
+                                {% for r in registros %}
+                                <div>
+
+
+                                    <img class="direct-chat-img" src="/media/{{r.collaborator.foto}}" alt="">
+
+
+                                    <div class="timeline-item">
+                                        <span class="time"> <i class="fa fa-calendar"></i>
+                                            {{r.timestamp}}
+                                        </span>
+                                        <h3 class="timeline-header">
+                                        Sentido: {{r.sentido}}
+                                        </h3>
+                                        <div class="timeline-body">
+                                            <div class="row">
+                                                <div class="embed-responsive embed-responsive-16by9">
+                                                    <img class="embed-responsive-item" src="/FOTOS_DETECCAO_FUMACA/{{r.path_photo}}" alt="Falha no Carregamento da FOTO"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer justify-content-between">
+                                             <span class="bg-danger">
+                                                    Duração: {{ r.duration }}
+                                            </span>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+
+                                <!-- END timeline item -->
+
+                                <div>
+                                    <i class="far fa-clock bg-gray"></i>
+                                </div>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </section>
+    {% endif %}
+
+
+
+<!-- jQuery -->
+<script src="{% static 'app/plugins/jquery/jquery.min.js' %}"></script>
+<!-- Bootstrap -->
+<script src="{% static 'app/plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<!-- AdminLTE -->
+<script src="{% static 'app/dist/js/adminlte.js' %}"></script>
+<script src="{% static 'app/plugins/chart.js/Chart.min.js' %}"></script>
+
+{% if messages %}
+{% for message in messages %}
+{% if 'info' == message.tags %}
+<script>
+ $(document).ready( function mostrarModal() {
+  Swal.fire({
+    position: 'top-center',
+    type: 'info',
+    title: 'Informação',
+    text: "{{message}}",
+    showConfirmButton: false,
+    timer: 3000,
+    footer:'www.a4solutions.com.br'
+  });
+});
+</script>
+{% endif %}
+{% endfor %}
+{% endif %}
+
+{% endblock conteudo %}

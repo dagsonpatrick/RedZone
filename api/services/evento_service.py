@@ -1,7 +1,8 @@
-
 from ..models import EventoRedZone, EventoCore
+from register.services import register_service
 
 def cadastrar_evento(evento):
+
     try:
          EventoRedZone.objects.get(status=evento.status, tag=evento.tag)
 
@@ -10,6 +11,7 @@ def cadastrar_evento(evento):
             try:
                 event_in_old = EventoRedZone.objects.get(status=0, tag=evento.tag)
                 atualizar_evento(event_in_old, evento, 1)
+                register_service.insert_register(evento)
             except EventoRedZone.DoesNotExist:
                 EventoRedZone.objects.create(portal = evento.portal,
                                              tag = evento.tag,
@@ -19,10 +21,12 @@ def cadastrar_evento(evento):
                                              battery =  evento.battery,
                                              status = evento.status,
                                              timestamp = evento.timestamp)
+                register_service.insert_register(evento)
         else:
             try:
                 event_out_old = EventoRedZone.objects.get(status=1, tag=evento.tag)
                 atualizar_evento(event_out_old, evento, 0)
+                register_service.insert_register(evento)
             except EventoRedZone.DoesNotExist:
                 EventoRedZone.objects.create(portal = evento.portal,
                                              tag = evento.tag,
@@ -32,6 +36,7 @@ def cadastrar_evento(evento):
                                              battery =  evento.battery,
                                              status = evento.status,
                                              timestamp = evento.timestamp)
+                register_service.insert_register(evento)
 
 def collaborators_within_redzone():
     collaborators_in_redzone = EventoRedZone.objects.filter(status=1)

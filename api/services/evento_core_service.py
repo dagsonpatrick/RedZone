@@ -1,5 +1,5 @@
-
 from ..models import EventoRedZone
+
 
 def cadastrar_evento(evento):
     try:
@@ -33,13 +33,16 @@ def cadastrar_evento(evento):
                                              status = evento.status,
                                              timestamp = evento.timestamp)
 
+
 def collaborators_within_redzone():
     collaborators_in_redzone = EventoRedZone.objects.filter(status=1)
     return collaborators_in_redzone
 
+
 def collaborators_outside_redzone():
     collaborators_in_redzone = EventoRedZone.objects.filter(status=0)
     return collaborators_in_redzone
+
 
 def atualizar_evento(evento_antigo, evento_novo, status):
     evento_antigo.portal = evento_novo.portal
@@ -51,6 +54,7 @@ def atualizar_evento(evento_antigo, evento_novo, status):
     evento_antigo.status =  status
     evento_antigo.timestamp = evento_novo.timestamp
     evento_antigo.save(force_update=True)
+
 
 def create_info_eventos(collaborators_in_redzone, collaborators_out_redzone):
 

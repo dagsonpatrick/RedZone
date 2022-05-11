@@ -61,11 +61,11 @@ def logar_usuario(request):
         form_login = LoginForm()
     return render(request, 'user/login.html', {"form_login": form_login})
 
-#@login_required()
 def deslogar_usuario(request):
     logout(request)
     return redirect('logar_usuario')
 
+@login_required()
 def reset_senha_usuario(request):
 
     if request.method == "POST":
@@ -79,7 +79,7 @@ def reset_senha_usuario(request):
 
     return render(request, 'registration/password_reset_form.html', {})
 
-#@login_required()
+@login_required()
 def alterar_senha_usuario(request):
     if request.method == "POST":
         form_senha = PasswordChangeForm(request.user, request.POST)
@@ -91,11 +91,11 @@ def alterar_senha_usuario(request):
         form_senha = PasswordChangeForm(request.user)
     return render(request, 'user/recover-password.html', {'form_senha': form_senha})
 
-#@login_required()
+@login_required()
 def profile_usuario(request):
        return render(request, 'user/profile_usuario.html',{})
 
-#@login_required()
+@login_required()
 def atualizar_profile_picture(request):
 
     if request.method == "POST":
@@ -109,13 +109,15 @@ def atualizar_profile_picture(request):
         form_usuario = ProfilePictureForm()
     return render(request, 'user/profile_usuario.html',  {"form_usuario": form_usuario})
 
+
 @login_required()
+@user_passes_test(lambda u: u.is_superuser)
 def listar_usuarios(request):
     usuarios = usuario_service.listar_usuarios(request)
     return render(request, 'user/form_listar_usuarios.html', {"usuarios": usuarios})
 
-
 @login_required()
+@user_passes_test(lambda u: u.is_superuser)
 def remover_usuario(request, id):
     usuario = usuario_service.listar_usuario_id(id)
     if request.method == "POST":
@@ -125,6 +127,7 @@ def remover_usuario(request, id):
 
 
 @login_required()
+@user_passes_test(lambda u: u.is_superuser)
 def desativar_usuario(request, id):
     usuario = usuario_service.listar_usuario_id(id)
     usuario_service.desativar_usuario(usuario)
@@ -132,6 +135,7 @@ def desativar_usuario(request, id):
 
 
 @login_required()
+@user_passes_test(lambda u: u.is_superuser)
 def ativar_usuario(request, id):
     usuario = usuario_service.listar_usuario_id(id)
     usuario_service.ativar_usuario(usuario)
@@ -139,11 +143,13 @@ def ativar_usuario(request, id):
 
 
 @login_required()
+@user_passes_test(lambda u: u.is_superuser)
 def add_permission_admin(request, id):
     usuario_service.add_permission_admin(id)
     return redirect('listar_usuarios')
 
 @login_required()
+@user_passes_test(lambda u: u.is_superuser)
 def add_permission_base(request, id):
     usuario_service.add_permission_base(id)
     return redirect('listar_usuarios')
@@ -157,6 +163,7 @@ def listar_acessos_usuarios(request):
 
 
 @login_required()
+@user_passes_test(lambda u: u.is_superuser)
 def pesquisar_acessos_usuarios(request):
     global registros_acesso, dt_inicial_pesquisa, dt_final_pesquisa
     acessos = usuario_service.listar_acessos_usuarios()
@@ -185,6 +192,7 @@ def pesquisar_acessos_usuarios(request):
 
 
 @login_required()
+@user_passes_test(lambda u: u.is_superuser)
 def export_excel(request):
 
     global registros_acesso, dt_inicial_pesquisa, dt_final_pesquisa

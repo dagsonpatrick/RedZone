@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'api',
     'rest_framework',
     'channels',
+    'register',
+    'report'
 
 ]
 

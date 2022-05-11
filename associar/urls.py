@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import *
+from .views import associar_colaborador, listar_associacoes, listar_associacoes_colaboradores, remover_associacao_colaborador, exibir_associacoes
 
 urlpatterns = [
 

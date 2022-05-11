@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import *
+from .views import cadastrar_collaborator, listar_collaborators, editar_collaborator, remover_collaborator
 
 urlpatterns = [
 

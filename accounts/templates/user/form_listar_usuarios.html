@@ -6,7 +6,15 @@
       <div class="container-fluid">
         <div class="row mb">
           <div class="col-sm-6">
+          {% if usuarios %}
             <h1>Gerenciar usuários cadastrados no sistema</h1>
+              {% else %}
+              <div class="alert alert-danger alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <h4><i class="fas fa-user"></i>  Alert!</h4>
+                  Sem Usuários Cadastrados no Sistema.
+              </div>
+          {% endif %}
           </div>
              <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -18,7 +26,7 @@
         </div>
       </div><!-- /.container-fluid -->
     </section>
-
+    {% if usuarios %}
    <!-- Main content -->
     <section class="content">
       <div class="row">
@@ -119,6 +127,7 @@
       <!-- /.row -->
     </section>
     <!-- /.content -->
+    {% endif %}
 {% for usuario in usuarios %}
  <form action="{% url 'remover_usuario' usuario.id %}" method="post">
 <div class="modal fade" id="modal-lg{{usuario.id}}">

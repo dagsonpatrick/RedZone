@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Relatório de Eventos de Detecção</title>
+    <style>
+     {font-family: "Times New Roman, serif";
+    font-size: 12pt;}
+    </style>
+</head>
+<body >
+
+     <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body">
+              <h1>Relatório de Eventos de Detecção</h1>
+              <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                   <tr>
+                       <th>Local Emissão</th>
+                       <th>Data/Hora Inicio</th>
+                       <th>Data/Hora Fim</th>
+                       <th>Duração Evento</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for reg in registros %}
+                  <tr>
+                    <td class="text-center">{{ reg.description }}</td>
+                      <td><label>{{ reg.timestampInicial }}</label></td>
+                      <td><label>{{ reg.timestampFinal }}</label></td>
+                      <td><label>{{ reg.duration }}</label></td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </section>
+    <!-- /.content -->
+
+  <footer class="main-footer" style="background-image:url('/media/avatar/template_a4.png'); background-position: center right;background-repeat: no-repeat;">
+    <strong>Copyright &copy;  {% now "Y" as current_year %} {{current_year}} <a href="https://www.a4solutions.com.br/" target="_blank">A4 Solutions</a>.</strong>
+    All rights reserved.
+    <div class="float-right d-none d-sm-inline-block">
+      <b>Version</b> 1.0.0
+    </div>
+  </footer>
+
+</body>
+</html>
