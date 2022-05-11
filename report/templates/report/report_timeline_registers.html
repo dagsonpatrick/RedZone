@@ -53,13 +53,13 @@
       <div class="row">
 
         <div class="col-md-12">
-            <div class="card">
+            <div class="card ">
                 <div class="card-header p-2">
                     <ul class="nav nav-pills">
                         <li class="nav-item"><a class="nav-link active" href="#timeline" data-toggle="tab">Histórico</a></li>
                     </ul>
                 </div>
-                <div class="card-body">
+                <div class="card-body col-md-6">
                     <div class="tab-content">
                         <div class="active tab-pane" id="timeline">
                             <ul class="timeline timeline-inverse">
@@ -70,31 +70,71 @@
                                 </div>
 
                                 {% for r in registros %}
-                                <div>
-
-
-                                    <img class="direct-chat-img" src="/media/{{r.collaborator.foto}}" alt="">
-
-
+                                <div >
+                                    {% if  r.sentido == 'Saiu' %}
+                                        <i class="fas fa-sign-out-alt bg-green"></i>
+                                    {% else %}
+                                         <i class="fas fa-sign-in-alt bg-red" ></i>
+                                    {% endif %}
                                     <div class="timeline-item">
-                                        <span class="time"> <i class="fa fa-calendar"></i>
-                                            {{r.timestamp}}
-                                        </span>
                                         <h3 class="timeline-header">
-                                        Sentido: {{r.sentido}}
+                                            <span class="time"> <i class="fa fa-calendar"></i>
+                                            {{r.timestamp}}
+                                            </span>
                                         </h3>
                                         <div class="timeline-body">
                                             <div class="row">
-                                                <div class="embed-responsive embed-responsive-16by9">
-                                                    <img class="embed-responsive-item" src="/FOTOS_DETECCAO_FUMACA/{{r.path_photo}}" alt="Falha no Carregamento da FOTO"/>
+                                                <div class="col-md-12">
+                                                    <!-- Widget: user widget style 1 -->
+                                                    <div class="card card-widget widget-user">
+                                                      <!-- Add the bg color to the header using any of the bg-* classes -->
+                                                      {% if  r.sentido == 'Saiu' %}
+                                                      <div class="widget-user-header bg-success">
+                                                        <h3 class="widget-user-username">{{r.collaborator.first_name}} {{r.collaborator.last_name}}</h3>
+                                                        <h5 class="widget-user-desc">{{r.sentido}} da RedZone</h5>
+                                                      </div>
+                                                      {% else %}
+                                                      <div class="widget-user-header bg-danger">
+                                                        <h3 class="widget-user-username">{{r.collaborator.first_name}} {{r.collaborator.last_name}}</h3>
+                                                        <h5 class="widget-user-desc">{{r.sentido}} da RedZone</h5>
+                                                      </div>
+                                                       {% endif %}
+                                                      <div class="widget-user-image">
+                                                        <img class="img-circle elevation-2" src="/media/{{r.collaborator.foto}}" alt="User Avatar">
+                                                      </div>
+                                                      <div class="card-footer">
+                                                        <div class="row">
+                                                          <div class="col-sm-4 border-right">
+                                                            <div class="description-block">
+                                                              <h5 class="description-header">BATERIA</h5>
+                                                              <span class="description-text">{{r.battery}}</span>
+                                                            </div>
+                                                            <!-- /.description-block -->
+                                                          </div>
+                                                          <!-- /.col -->
+                                                          <div class="col-sm-4 border-right">
+                                                            <div class="description-block">
+                                                              <h5 class="description-header">TEMPERATURA</h5>
+                                                              <span class="description-text">{{r.temperature}}</span>
+                                                            </div>
+                                                            <!-- /.description-block -->
+                                                          </div>
+                                                          <!-- /.col -->
+                                                          <div class="col-sm-4">
+                                                            <div class="description-block">
+                                                              <h5 class="description-header">TAG</h5>
+                                                              <span class="description-text">{{r.tag}}</span>
+                                                            </div>
+                                                            <!-- /.description-block -->
+                                                          </div>
+                                                          <!-- /.col -->
+                                                        </div>
+                                                        <!-- /.row -->
+                                                      </div>
+                                                    </div>
+                                                    <!-- /.widget-user -->
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="modal-footer justify-content-between">
-                                             <span class="bg-danger">
-                                                    Duração: {{ r.duration }}
-                                            </span>
-
                                         </div>
                                     </div>
                                 </div>
