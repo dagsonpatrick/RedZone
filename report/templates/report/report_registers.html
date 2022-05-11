@@ -94,68 +94,6 @@
      </div>
     </section>
     {% endif %}
-    <input type="hidden" id="dataThisYear" value="{{dataThisYear}}">
-    <input type="hidden" id="datalastYear" value="{{datalastYear}}">
-    <input type="hidden" id="thisYear" value="{{thisYear}}">
-    <input type="hidden" id="lastYear" value="{{lastYear}}">
-
-
-{% for r in registros %}
-<div class="modal fade" id="modal-foto{{r.id}}">
-        <div class="modal-dialog modal-xl">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title">{{r.description}}</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="embed-responsive embed-responsive-16by9">
-                        <img class="embed-responsive-item" src="/FOTOS_DETECCAO_FUMACA/{{r.path_photo}}" alt="Falha no Carregamento da FOTO"/>
-                    </div>
-                </div>
-            <div class="modal-footer justify-content-between">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-              <a href="/FOTOS_DETECCAO_FUMACA/{{r.path_photo}}" class="btn btn-sm btn-primary" download>
-                 <i class="fas fa-download"></i> Download
-              </a>
-            </div>
-          </div>
-          <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-      </div>
-      <!-- /.modal -->
-</div>
-
-<div class="modal fade" id="modal-video{{r.id}}">
-        <div class="modal-dialog modal-xl">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title">{{r.description}}</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="embed-responsive embed-responsive-16by9">
-                        <img class="embed-responsive-item" src="{{ r.api_video }}" alt="Falha ao carregar video"/>
-                    </div>
-                </div>
-            <div class="modal-footer justify-content-between">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-            </div>
-          </div>
-          <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-      </div>
-      <!-- /.modal -->
-</div>
-{% endfor %}
 
 
 <!-- jQuery -->
@@ -164,7 +102,6 @@
 <script src="{% static 'app/plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 <!-- AdminLTE -->
 <script src="{% static 'app/dist/js/adminlte.js' %}"></script>
-<script src="{% static 'app/plugins/chart.js/Chart.min.js' %}"></script>
 
 {% if messages %}
           {% for message in messages %}
@@ -185,114 +122,5 @@
              {% endif %}
           {% endfor %}
 {% endif %}
-
-<!-- page script -->
-<script>
-
-    var dataThisYear = jQuery.parseJSON(document.getElementById("dataThisYear").value);
-    var datalastYear = jQuery.parseJSON(document.getElementById("datalastYear").value);
-
-    var thisYear = document.getElementById("thisYear").value
-    var lastYear = document.getElementById("lastYear").value
-
-$(document).ready(function(){
-
-  $(function () {
-     var ticksStyle = {
-    fontColor: '#495057',
-    fontStyle: 'bold'
-  }
-
-  var mode      = 'index'
-  var intersect = true
-    //[1, 2 , 3 , 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    //[700, 1700, 2700, 2000, 1800, 1500, 2000, 1000, 250, 500, 1000, 2000]
-  var $salesChart = $('#sales-chart')
-  var salesChart  = new Chart($salesChart, {
-    type   : 'bar',
-    data   : {
-      labels  : ['JAN','FEV','MAR','ABR', 'MAI', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'],
-      datasets: [
-        {
-          backgroundColor: '#007bff',
-          borderColor    : '#007bff',
-          data           : dataThisYear,
-          label: thisYear
-
-        },
-        {
-          backgroundColor: '#ced4da',
-          borderColor    : '#ced4da',
-          data           : datalastYear,
-          label: lastYear
-        }
-      ]
-    },
-    options: {
-      maintainAspectRatio: false,
-      tooltips           : {
-        mode     : mode,
-        intersect: intersect
-      },
-      hover              : {
-        mode     : mode,
-        intersect: intersect
-      },
-      legend             : {
-        display: true
-
-      },
-      scales             : {
-        yAxes: [{
-          // display: false,
-          gridLines: {
-            display      : true,
-            lineWidth    : '4px',
-            color        : 'rgba(0, 0, 0, .2)',
-            zeroLineColor: 'transparent'
-          },
-          ticks    : $.extend({
-            beginAtZero: true,
-
-            // Include a dollar sign in the ticks
-            callback: function (value, index, values) {
-              if (value >= 1000) {
-                value /= 1000
-                value += 'k'
-              }
-              return '' + value
-            }
-          }, ticksStyle)
-        }],
-        xAxes: [{
-          display  : true,
-          gridLines: {
-            display: false
-          },
-          ticks    : ticksStyle
-        }]
-      }
-    }
-  });
-  });
-
-  });
-</script>
-
-<script language="javascript">
-
-    $(function () {
-
-        //Selecionar analitico
-        var valueIdAnalitico = document.getElementById('tempAnalitico').value;
-        var selectAnalitico = document.getElementById('analitico');
-        for (i = 0; i < selectAnalitico.length; i++){
-            if(selectAnalitico.options[i].value == valueIdAnalitico){
-                selectAnalitico.options[i].selected = true ;
-            }
-        }
-});
-
-</script>
 
 {% endblock conteudo %}
