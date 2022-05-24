@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'monitoring',
     'api',
     'rest_framework',
+    "rest_framework_api_key",
     'channels',
     'register',
     'report'
@@ -169,3 +170,12 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 SESSION_EXPIRE_SECONDS = 600 # 10 minutos de inatividade
 SESSION_EXPIRE_AFTER_LAST_ACTIVITY =  True
 SESSION_TIMEOUT_REDIRECT = 'logar_usuario'
+
+REST_FRAMEWORK = {
+    # 'DEFAULT_PARSER_CLASSES': [
+    #     'rest_framework.parsers.JSONParser',
+    # ],
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework_api_key.permissions.HasAPIKey",
+    ]
+}
